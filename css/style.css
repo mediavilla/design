@@ -9,7 +9,7 @@ html {
   text-shadow: 0px 2px 0px #000000;
 
 }
-
+ 
 body {
   max-width: 960px;
   margin: 0 auto;
@@ -68,16 +68,19 @@ code,
 
 h1 {
   font-size: 24px;
+  font-weight: 700;
 }
 
 h2 {
   font-size: 64px;
   line-height: 64px;
+  font-weight: 700;
 }
 
 h3 {
   font-size: 36px;
   color: #888;
+  font-weight: 700;
 }
 
 .smallcopy {
