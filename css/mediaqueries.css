@@ -1,0 +1,6 @@
+@media (max-width: 768px){
+  body { background-color: #222221; width: 95%; }  
+}
+@media (min-width: 769px){
+  body { background-color: #222; width: 95%; }  
+}
