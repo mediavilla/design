@@ -1,19 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <g fill="none" fill-rule="evenodd">
-    <rect width="512" height="512" fill="#222222"/>
-    <g transform="rotate(45 123.149 303.786)">
-      <g transform="translate(20.464 19.586)">
-        <rect width="86.586" height="86.586" x="96.207" fill="#FFFFFF"/>
-        <rect width="86.586" height="86.586" x="96.207" y="96.207" fill="#FFFFFF"/>
-        <rect width="86.586" height="86.586" y="96.207" fill="#FFFFFF"/>
-        <rect width="86.586" height="86.586" x="96.207" y="192.414" fill="#FFE604"/>
-        <rect width="86.586" height="86.586" y="192.414" fill="#FFFFFF"/>
-        <rect width="86.586" height="86.586" x="192.414" fill="#FFFFFF"/>
-        <rect width="86.586" height="86.586" x="192.414" y="96.207" fill="#FFE604"/>
-        <rect width="86.586" height="86.586" x="192.414" y="192.414" fill="#FFE604"/>
-      </g>
-      <polygon fill="#FFFFFF" fill-rule="nonzero" points="318.199 .694 318.199 318.481 .756 318.372 10.268 308.86 308.565 308.859 308.566 10.325"/>
-      <polygon fill="#FFE604" fill-rule="nonzero" points=".646 318.892 .646 97.281 97.086 97.28 97.086 1.17 318.362 1.176 308.702 10.836 106.73 10.78 106.73 106.892 10.29 106.891 10.312 309.226"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="482" height="482" viewBox="0 0 482 482">
+  <g fill="none" fill-rule="evenodd" transform="rotate(45 119.795 291.205)">
+    <g transform="translate(21.207 20.5)">
+      <rect width="92.793" height="92.793" x="103.103" fill="#FFFFFF"/>
+      <rect width="92.793" height="92.793" x="103.103" y="103.103" fill="#FFFFFF"/>
+      <rect width="92.793" height="92.793" y="103.103" fill="#FFFFFF"/>
+      <rect width="92.793" height="92.793" x="103.103" y="206.207" fill="#FFE604"/>
+      <rect width="92.793" height="92.793" y="206.207" fill="#FFFFFF"/>
+      <rect width="92.793" height="92.793" x="206.207" fill="#FFFFFF"/>
+      <rect width="92.793" height="92.793" x="206.207" y="103.103" fill="#FFE604"/>
+      <rect width="92.793" height="92.793" x="206.207" y="206.207" fill="#FFE604"/>
     </g>
+    <polygon fill="#FFFFFF" points="10.303 329.697 329.697 329.697 329.697 10.303 340 0 340 340 0 340"/>
+    <polygon fill="#FFE604" points="0 103.03 103.03 103.042 103.03 0 340 0 329.697 10.303 113.333 10.303 113.333 113.333 10.303 113.333 10.303 329.697 0 340"/>
   </g>
 </svg>
