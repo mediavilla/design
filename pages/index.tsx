@@ -47,19 +47,19 @@ export default function Home() {
           </ul>
           <h3>Before</h3>
           <ul>
-            <li><span className={styles.codeSmallCopy}>Dec/19 - Oct/20:</span><br />Lead UX Designer at <Link href="https://www.pwc.com/" target="blank">PwC</Link>.</li>
-            <li><span className={styles.codeSmallCopy}>Jul/17 - Nov/19:</span><br />Service Design Manager at <Link href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</Link>.</li>
-            <li><span className={styles.codeSmallCopy}>Nov/16 - Jun/17:</span><br />User Experience Director at <Link href="https://www.rapp.com/" target="blank">RAPP</Link>.</li>
+            <li><span className={styles.codeSmallCopy}>Dec/19 &#8594; Oct/20 (Contract):</span><br />Lead UX Designer at <Link href="https://www.pwc.com/" target="blank">PwC</Link>.</li>
+            <li><span className={styles.codeSmallCopy}>Jul/17 &#8594; Nov/19 (Contract):</span><br />Service Design Manager at <Link href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</Link>.</li>
+            <li><span className={styles.codeSmallCopy}>Nov/16 &#8594; Jun/17 (Contract):</span><br />User Experience Director at <Link href="https://www.rapp.com/" target="blank">RAPP</Link>.</li>
           </ul>
           <h3>More</h3>
           <ul>
-            <li>During my over 20 years career I&apos;ve been lucky to work for some well known brands like Adidas, Airbnb, BP, Citibank, HP and PayPal.</li>
+            <li>During my 25+ years career I&apos;ve been lucky to work for some well known brands like Adidas, Airbnb, BP, Citibank, HP and PayPal.</li>
           </ul>
         </div>
         <div className={styles.contact}>
-          <p>You can find me on <Link href="https://www.linkedin.com/in/jrmediavilla/" target="blank">LinkedIn</Link> or <Link href="https://twitter.com/JuanMediavilla" target="blank">Twitter</Link>.</p>
+          <p>You can find me on 💻 <Link href="https://github.com/mediavilla" target="blank">Github</Link>, 🐦 <Link href="https://twitter.com/JuanMediavilla" target="blank">Twitter</Link> or 👔 <Link href="https://www.linkedin.com/in/jrmediavilla/" target="blank">LinkedIn</Link>.</p>
         </div>
-        <p>And... yes, Mediavilla is actually my surname.</p>
+        <p>And... yes, Mediavilla is actually my surname. 🤷🏽‍♂️</p>
         <footer>
           <Image src="./logo.svg" height="200" width="200" alt="logo" />
         </footer>
