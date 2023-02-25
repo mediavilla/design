@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <Head>
-      // meta charset="UTF-8" not needed with Next.js
+
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <title>Mediavilla</title>
@@ -15,19 +15,19 @@ export default function Home() {
         <meta name="keywords" content="user experience, service design, design" />
         <meta name="google-site-verification" content="NwnrJ5gez4yKFVJCou9JynAjMPrvM4gUB4YSaoToyhY" />
 
-    // Essential META Tags
+
         <meta property="og:title" content="Juan Mediavilla" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="http://mediavilla.design/images/banner-logo.png" />
         <meta property="og:url" content="http://mediavilla.design/index.html" />
         <meta name="twitter:card" content="summary_large_image" />
 
-    //  Non-Essential, But Recommended
+
         <meta property="og:description" content="User Experience and Service Designer" />
         <meta property="og:site_name" content="mediavilla.design" />
         <meta name="twitter:image:alt" content="Pattern with squares in diamond shape coloured in shades of grey with 5 diamonds arranged as a white M and 3 yellow diamons below arranged as a V in the center of the image. On the top left there are white, yellow and blue diamonds" />
 
-    //  Non-Essential, But Required for Analytics
+
         <meta name="twitter:site" content="@JuanMediavilla" />
         <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
         <link rel="stylesheet" href="https://use.typekit.net/ycy7yga.css" />
