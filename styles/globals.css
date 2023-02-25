@@ -1,3 +1,7 @@
+@import 'normalize.css';
+@import 'mediaqueries.css';
+@import url(https://use.typekit.net/ycy7yga.css);
+
 html {
   font-family: neue-haas-grotesk-display, sans-serif;
   font-weight: 600;
