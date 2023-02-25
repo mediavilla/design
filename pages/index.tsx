@@ -30,8 +30,7 @@ export default function Home() {
 
         <meta name="twitter:site" content="@JuanMediavilla" />
         <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
-        <link rel="stylesheet" href="https://use.typekit.net/ycy7yga.css" />
-        <link rel="stylesheet" href="css/style.css" type="text/css" />
+
       </Head>
       <header>
         <h1>Juan Mediavilla</h1>
@@ -47,13 +46,13 @@ export default function Home() {
           </ul>
           <h3>Before</h3>
           <ul>
-            <li><span className={"code smallcopy"}>Dec/19 &#8594; Oct/20 (Contract):</span><br />Lead UX Designer at <Link href="https://www.pwc.com/" target="blank">PwC</Link>.</li>
-            <li><span className={"code smallcopy"}>Jul/17 &#8594; Nov/19: (Contract)</span><br />Service Design Manager at <Link href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</Link>.</li>
-            <li><span className={"code smallcopy"}>Nov/16 &#8594; Jun/17: (Contract)</span><br />User Experience Director at <Link href="https://www.rapp.com/" target="blank">RAPP</Link>.</li>
+            <li><span className={"code smallcopy"}>Dec/19 - Oct/20:</span><br />Lead UX Designer at <Link href="https://www.pwc.com/" target="blank">PwC</Link>.</li>
+            <li><span className={"code smallcopy"}>Jul/17 - Nov/19:</span><br />Service Design Manager at <Link href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</Link>.</li>
+            <li><span className={"code smallcopy"}>Nov/16 - Jun/17:</span><br />User Experience Director at <Link href="https://www.rapp.com/" target="blank">RAPP</Link>.</li>
           </ul>
           <h3>More</h3>
           <ul>
-            <li>During my over 20 years career I've been lucky to work for some well known brands like Adidas, Airbnb, BP, Citibank, HP and PayPal.</li>
+            <li>During my over 20 years career I&apos;ve been lucky to work for some well known brands like Adidas, Airbnb, BP, Citibank, HP and PayPal.</li>
           </ul>
         </div>
         <div className={"contact"}>
@@ -61,7 +60,7 @@ export default function Home() {
         </div>
         <p>And... yes, Mediavilla is actually my surname.</p>
         <footer>
-          <Image src="https://mediavilla.design/images/logo.svg" height="200" width="200" alt="logo" />
+          <Image src="./logo.svg" height="200" width="200" alt="logo" />
         </footer>
       </main>
     </>
