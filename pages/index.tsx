@@ -29,7 +29,7 @@ export default function Home() {
 
 
         <meta name="twitter:site" content="@JuanMediavilla" />
-        <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
 
       </Head>
       <header>
