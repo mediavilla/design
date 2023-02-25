@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link';
+import styles from '@/styles/Home.module.css'
 
 export default function Home() {
   return (
@@ -36,26 +37,26 @@ export default function Home() {
         <h1>Juan Mediavilla</h1>
       </header>
       <main>
-        <div className={"intro"}>
+        <div className={styles.intro}>
           <h2>User experience and service designer.</h2>
         </div>
-        <div className={"cv"}>
+        <div className={styles.cv}>
           <h3>Now</h3>
           <ul>
             <li>Head of UX and Service Design at <Link href="https://www.pwc.co.uk/services/consulting/the-experience-centre.html" target="blank">PwC UK</Link>.</li>
           </ul>
           <h3>Before</h3>
           <ul>
-            <li><span className={"code smallcopy"}>Dec/19 - Oct/20:</span><br />Lead UX Designer at <Link href="https://www.pwc.com/" target="blank">PwC</Link>.</li>
-            <li><span className={"code smallcopy"}>Jul/17 - Nov/19:</span><br />Service Design Manager at <Link href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</Link>.</li>
-            <li><span className={"code smallcopy"}>Nov/16 - Jun/17:</span><br />User Experience Director at <Link href="https://www.rapp.com/" target="blank">RAPP</Link>.</li>
+            <li><span className={styles.codeSmallCopy}>Dec/19 - Oct/20:</span><br />Lead UX Designer at <Link href="https://www.pwc.com/" target="blank">PwC</Link>.</li>
+            <li><span className={styles.codeSmallCopy}>Jul/17 - Nov/19:</span><br />Service Design Manager at <Link href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</Link>.</li>
+            <li><span className={styles.codeSmallCopy}>Nov/16 - Jun/17:</span><br />User Experience Director at <Link href="https://www.rapp.com/" target="blank">RAPP</Link>.</li>
           </ul>
           <h3>More</h3>
           <ul>
             <li>During my over 20 years career I&apos;ve been lucky to work for some well known brands like Adidas, Airbnb, BP, Citibank, HP and PayPal.</li>
           </ul>
         </div>
-        <div className={"contact"}>
+        <div className={styles.contact}>
           <p>You can find me on <Link href="https://www.linkedin.com/in/jrmediavilla/" target="blank">LinkedIn</Link> or <Link href="https://twitter.com/JuanMediavilla" target="blank">Twitter</Link>.</p>
         </div>
         <p>And... yes, Mediavilla is actually my surname.</p>
