@@ -6,5 +6,5 @@ My very basic and plain HTML page turned into a [Next.js](https://nextjs.org/) f
 
 Font: Neue Haas Grotesk Display Pro (https://fonts.adobe.com/fonts/neue-haas-grotesk)
 
-Hosted for free on [Vercel](https://vercel.com) 
+Hosted for free on [Vercel](https://vercel.com)
 
