@@ -40,6 +40,7 @@ export default function Home() {
         <div className={styles.intro}>
           <h2>User experience and service designer.</h2>
         </div>
+
         <div className={styles.cv}>
           <h3>Now</h3>
           <ul>
