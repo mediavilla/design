@@ -1,6 +1,6 @@
 # [mediavilla.design](http://mediavilla.design)
 
-My very basic and plain HTML page turned into a [Next.js](https://nextjs.org/) from Feb 2023.
+My very basic and plain site turned powered by [Next.js](https://nextjs.org/) from Feb 2023.
 
 ## Info:
 
