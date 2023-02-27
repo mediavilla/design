@@ -6,4 +6,4 @@ Font: [Neue Haas Grotesk Display Pro](https://fonts.adobe.com/fonts/neue-haas-gr
 
 Hosted for free on [Vercel](https://vercel.com)
 
-[//]: <> ![Visit the site!](https://mediavilla.design/logo.svg)
+[//]: ![Visit the site!](https://mediavilla.design/logo.svg)
