@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "serve": "concurrently \"http-server -p 3000 -c-1.\" \"start http://0.0.0.0:3000/mandala\""
   },
   "dependencies": {
     "@types/node": "18.14.1",
