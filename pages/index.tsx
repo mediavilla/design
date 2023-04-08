@@ -19,7 +19,7 @@ export default function Home() {
 
         <meta property="og:title" content="Juan Mediavilla" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="http://mediavilla.design/images/banner-logo.png" />
+        <meta property="og:image" content="https://mediavilla.design/banner-logo.png" />
         <meta property="og:url" content="http://mediavilla.design/index.html" />
         <meta name="twitter:card" content="summary_large_image" />
 
