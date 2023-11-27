@@ -2,13 +2,21 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link';
 import styles from '@/styles/Home.module.css'
+import Typewriter from '../components/Typewriter'
 
 export default function Home() {
+
+  const actions = [
+    { type: 'delay', ms: 100 },
+    { type: 'type', text: 'Designer' },
+    { type: 'delay', ms: 100 },
+    { type: 'move', direction: 'left', chars: 8 },
+    { type: 'delay', ms: 1000 }
+  ];
+
   return (
     <>
       <Head>
-
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <title>Mediavilla</title>
         <meta name="author" content="Juan Mediavilla" />
@@ -38,13 +46,14 @@ export default function Home() {
       </header>
       <main>
         <div className={styles.intro}>
-          <h2>User experience and service designer.</h2>
+          <Typewriter actions={actions} />
+
         </div>
 
         <div className={styles.cv}>
           <h3>Now</h3>
           <ul>
-            <li>Head of UX and Service Design at <Link href="https://www.pwc.co.uk/services/consulting/the-experience-centre.html" target="blank">PwC UK</Link>.</li>
+            <li>Head of UX and Service Design at <Link href="#" target="blank">PwC UK</Link>.</li>
           </ul>
           <h3>Before</h3>
           <ul>
