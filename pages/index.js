@@ -31,6 +31,7 @@ export default function Home() {
 
         <meta name="twitter:site" content="@JuanMediavilla" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
+        <link rel="apple-touch-icon" href="https://mediavilla.design/mediavillalogo.png"></link>
 
       </Head>
       <header>
