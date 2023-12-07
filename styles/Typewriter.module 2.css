@@ -1,0 +1,23 @@
+.cursor {
+    background-color: rgb(255, 255, 255);
+    width: 5px;
+    height: 0.7em;
+    display: inline-block;
+    margin-left: 2px;
+    animation: blink 1s steps(1, end) infinite;
+}
+
+.selected {
+    color: #444;
+    background: #ffe604;
+    text-shadow: none;
+    /* Simple fade-in effect */
+    transition: background-color 0.3s ease;
+
+}
+
+@keyframes blink {
+    50% {
+        background-color: transparent;
+    }
+}

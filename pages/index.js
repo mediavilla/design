@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link';
 import styles from '@/styles/Home.module.css'
-import Typewriter from '../components/Typewriter'
+
 
 export default function Home() {
 
@@ -10,7 +10,7 @@ export default function Home() {
     { type: 'delay', ms: 100 },
     { type: 'type', text: 'Designer' },
     { type: 'delay', ms: 100 },
-    { type: 'move', direction: 'left', chars: 8 },
+    { type: 'delete', chars: 3 },
     { type: 'delay', ms: 1000 }
   ];
 
@@ -45,15 +45,12 @@ export default function Home() {
         <h1>Juan Mediavilla</h1>
       </header>
       <main>
-        <div className={styles.intro}>
-          <Typewriter actions={actions} />
-
-        </div>
+        <h2>User experience and service designer.</h2>
 
         <div className={styles.cv}>
           <h3>Now</h3>
           <ul>
-            <li>Head of UX and Service Design at <Link href="#" target="blank">PwC UK</Link>.</li>
+            <li>Head of UX and Service Design at <Link href="https://www.pwc.co.uk/" target="blank">PwC UK</Link>.</li>
           </ul>
           <h3>Before</h3>
           <ul>
