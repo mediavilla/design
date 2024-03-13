@@ -1,14 +1,15 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link';
-import styles from '@/styles/Home.module.css'
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from 'geist/font/mono'
 
 export default function Home() {
   return (
     <>
       <Head>
 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <title>Mediavilla</title>
         <meta name="author" content="Juan Mediavilla" />
@@ -35,30 +36,30 @@ export default function Home() {
 
       </Head>
       <header>
-        <h1>Juan Mediavilla</h1>
+        <h1 className={GeistSans.className}>Juan Mediavilla</h1>
       </header>
-      <main>
-        <div className={styles.intro}>
+      <main className={GeistSans.className}>
+        <div>
           <h2>User experience and service designer.</h2>
         </div>
 
-        <div className={styles.cv}>
+        <div>
           <h3>Now</h3>
           <ul>
             <li>Head of UX and Service Design at <Link href="https://www.pwc.co.uk/services/consulting/the-experience-centre.html" target="blank">PwC UK</Link>.</li>
           </ul>
           <h3>Before</h3>
           <ul>
-            <li><span className={styles.codeSmallCopy}>Dec/19 &#8594; Oct/20 (Contract):</span><br />Lead UX Designer at <Link href="https://www.pwc.com/" target="blank">PwC</Link>.</li>
-            <li><span className={styles.codeSmallCopy}>Jul/17 &#8594; Nov/19 (Contract):</span><br />Service Design Manager at <Link href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</Link>.</li>
-            <li><span className={styles.codeSmallCopy}>Nov/16 &#8594; Jun/17 (Contract):</span><br />User Experience Director at <Link href="https://www.rapp.com/" target="blank">RAPP</Link>.</li>
+            <li><span className={`${GeistMono.className} date`}>Dec/19 &#8594; Oct/20 (Contract):</span><br />Lead UX Designer at <Link href="https://www.pwc.com/" target="blank">PwC</Link>.</li>
+            <li><span className={`${GeistMono.className} date`}>Jul/17 &#8594; Nov/19 (Contract):</span><br />Service Design Manager at <Link href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</Link>.</li>
+            <li><span className={`${GeistMono.className} date`}>Nov/16 &#8594; Jun/17 (Contract):</span><br />User Experience Director at <Link href="https://www.rapp.com/" target="blank">RAPP</Link>.</li>
           </ul>
           <h3>More</h3>
           <ul>
             <li>During my 25+ years career I&apos;ve been lucky to work for some well known brands like Adidas, Airbnb, BP, Citibank, HP and PayPal.</li>
           </ul>
         </div>
-        <div className={styles.contact}>
+        <div>
           <p>You can find me on 💻 <Link href="https://github.com/mediavilla" target="blank">Github</Link>, 🐦 <Link href="https://twitter.com/JuanMediavilla" target="blank">Twitter</Link> or 👔 <Link href="https://www.linkedin.com/in/jrmediavilla/" target="blank">LinkedIn</Link>.</p>
         </div>
         <p>And... yes, Mediavilla is actually my surname. 🤷🏽‍♂️</p>

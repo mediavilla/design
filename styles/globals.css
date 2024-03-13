@@ -80,6 +80,7 @@ h3 {
     font-size: 36px;
     color: #888;
     font-weight: 700;
+    margin-bottom: 0.1em;
 }
 
 .smallcopy {
@@ -106,6 +107,7 @@ li {
     margin-bottom: 10px;
 }
 
+li span.date { font-size: 0.6em;}
 footer {
     text-align: center;
     padding: 100px 10px 100px 10px;
