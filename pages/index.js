@@ -46,7 +46,7 @@ export default function Home() {
         <div>
           <h3>Now</h3>
           <ul>
-            <li>Head of UX and Service Design at <Link href="https://www.pwc.co.uk/services/consulting/the-experience-centre.html" target="blank">PwC UK</Link>.</li>
+            <li>Head of Experience Design at <Link href="https://www.pwc.co.uk/services/consulting/the-experience-centre.html" target="blank">PwC UK</Link>.</li>
           </ul>
           <h3>Before</h3>
           <ul>
