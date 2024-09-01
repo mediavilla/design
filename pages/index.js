@@ -50,9 +50,9 @@ export default function Home() {
           </ul>
           <h3>Before</h3>
           <ul>
-            <li><span className={`${GeistMono.className} date`}>Dec/19 &#8594; Oct/20 (Contract):</span><br />Lead UX Designer at <Link href="https://www.pwc.com/" target="blank">PwC</Link>.</li>
-            <li><span className={`${GeistMono.className} date`}>Jul/17 &#8594; Nov/19 (Contract):</span><br />Service Design Manager at <Link href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</Link>.</li>
-            <li><span className={`${GeistMono.className} date`}>Nov/16 &#8594; Jun/17 (Contract):</span><br />User Experience Director at <Link href="https://www.rapp.com/" target="blank">RAPP</Link>.</li>
+            <li><span className={`${GeistMono.className} date`}>Dec/19 &#8594; Oct/20 (Contract):</span><br />Lead UX Designer at <a href="https://www.pwc.com/" target="blank">PwC</a>.</li>
+            <li><span className={`${GeistMono.className} date`}>Jul/17 &#8594; Nov/19 (Contract):</span><br />Service Design Manager at <a href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</a>.</li>
+            <li><span className={`${GeistMono.className} date`}>Nov/16 &#8594; Jun/17 (Contract):</span><br />User Experience Director at <a href="https://www.rapp.com/" target="blank">RAPP</a>.</li>
           </ul>
           <h3>More</h3>
           <ul>
@@ -60,9 +60,11 @@ export default function Home() {
           </ul>
         </div>
         <div>
-          <p>You can find me on 💻 <Link href="https://github.com/mediavilla" target="blank">Github</Link> or 🐦 <Link href="https://twitter.com/JuanMediavilla" target="blank">Twitter</Link></p>
+          <p>You can find me on 💻 <a href="https://github.com/mediavilla" target="blank">Github</a>, 🐦 <a href="https://twitter.com/JuanMediavilla" target="blank">Twitter</a> or 👔 <a href="https://www.linkedin.com/in/jrmediavilla/" target="blank">LinkedIn</a>.</p>
         </div>
         <p>And... yes, Mediavilla is actually my surname. 🤷🏽‍♂️</p>
+        <p><br/></p>
+        <p>P.S. I started a newsletter, you can check the first issue <a href="https://preview.mailerlite.io/emails/webview/1080659/131287926838396251" target="blank">here</a> and <a href="http://subscribepage.io/design-repo" target="blank">subscribe</a> if you like it.</p>
         <footer>
           <Image src="./logo.svg" height="200" width="200" alt="logo" />
         </footer>
