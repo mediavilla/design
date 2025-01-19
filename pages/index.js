@@ -64,7 +64,6 @@ export default function Home() {
         </div>
         <p>And... yes, Mediavilla is actually my surname. 🤷🏽‍♂️</p>
         <p><br/></p>
-        <p>P.S. I started a newsletter, you can check the first issue <a href="https://preview.mailerlite.io/emails/webview/1080659/131287926838396251" target="blank">here</a> and <a href="http://subscribepage.io/design-repo" target="blank">subscribe</a> if you like it.</p>
         <footer>
           <Image src="./logo.svg" height="200" width="200" alt="logo" />
         </footer>
