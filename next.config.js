@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export',               // generate /out
-  images: { unoptimized: true },  // required for static export
-  // If you’ll serve at a custom root domain (recommended), no basePath is needed.
-  // If you’re using a project URL (username.github.io/repo), set:
-  // basePath: '/<repo-name>',
-  // assetPrefix: '/<repo-name>/',
-};
-export default nextConfig;
+const isProd = process.env.NODE_ENV === 'production'
+const repo = '' // leave '' for custom domain; set to '/your-repo' if publishing under username.github.io/your-repo
+
+module.exports = {
+  output: 'export',
+  images: { unoptimized: true },
+  trailingSlash: true,               // helps with static hosting
+  basePath: repo,                    // '' for custom domain, '/repo' for project pages
+  assetPrefix: repo || undefined,    // match basePath
+}

@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link';
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from 'geist/font/mono'
+
 
 export default function Home() {
   return (
