@@ -35,9 +35,9 @@ export default function Home() {
 
       </Head>
       <header>
-        <h1 className={GeistSans.className}>Juan Mediavilla</h1>
+        <h1>Juan Mediavilla</h1>
       </header>
-      <main className={GeistSans.className}>
+      <main>
         <div>
           <h2>User experience and service designer.</h2>
         </div>
@@ -49,9 +49,9 @@ export default function Home() {
           </ul>
           <h3>Before</h3>
           <ul>
-            <li><span className={`${GeistMono.className} date`}>Dec/19 &#8594; Oct/20 (Contract):</span><br />Lead UX Designer at <a href="https://www.pwc.com/" target="blank">PwC</a>.</li>
-            <li><span className={`${GeistMono.className} date`}>Jul/17 &#8594; Nov/19 (Contract):</span><br />Service Design Manager at <a href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</a>.</li>
-            <li><span className={`${GeistMono.className} date`}>Nov/16 &#8594; Jun/17 (Contract):</span><br />User Experience Director at <a href="https://www.rapp.com/" target="blank">RAPP</a>.</li>
+            <li><span date>Dec/19 &#8594; Oct/20 (Contract):</span><br />Lead UX Designer at <a href="https://www.pwc.com/" target="blank">PwC</a>.</li>
+            <li><span date>Jul/17 &#8594; Nov/19 (Contract):</span><br />Service Design Manager at <a href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</a>.</li>
+            <li><span date>Nov/16 &#8594; Jun/17 (Contract):</span><br />User Experience Director at <a href="https://www.rapp.com/" target="blank">RAPP</a>.</li>
           </ul>
           <h3>More</h3>
           <ul>
