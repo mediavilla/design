@@ -34,16 +34,19 @@ jobs:
         run: npm run build
 
       - name: Verify export exists
-        run: test -d .next/out && ls -la .next/out
+        run: test -d out && ls -la out
 
       - name: Add .nojekyll
-        run: touch .next/out/.nojekyll
+        run: touch out/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .next/out
-
+          path: out
+          
+      - name: SPA fallback 404
+        run: cp out/index.html out/404.html
+        
   deploy:
     needs: build
     runs-on: ubuntu-latest
