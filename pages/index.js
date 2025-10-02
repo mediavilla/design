@@ -60,7 +60,7 @@ export default function Home() {
           </ul>
         </div>
         <div>
-          <p>You can find me on 💻 <a href="https://github.com/mediavilla" target="blank">Github</a>, 🐦 <a href="https://twitter.com/JuanMediavilla" target="blank">Twitter</a> or 👔 <a href="https://www.linkedin.com/in/jrmediavilla/" target="blank">LinkedIn</a>.</p>
+          <p>You can find me on 💻 <a href="https://github.com/mediavilla" target="blank">Github</a> or 🦋 <a href="https://bsky.app/profile/mediavilla.bsky.social" target="blank">Bluesky</a>.</p>
         </div>
         <p>And... yes, Mediavilla is actually my surname. 🤷🏽‍♂️</p>
         <p><br/></p>
