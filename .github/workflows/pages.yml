@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      CUSTOM_DOMAIN: ""
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,6 +28,15 @@ jobs:
         with:
           node-version: '20'     # you said you don't want Node 18
           cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Cache Next.js build cache
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('package-lock.json') }}-${{ hashFiles('next.config.js') }}-${{ hashFiles('app/**/*', 'pages/**/*', 'src/**/*') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-
 
       - name: Install deps
         run: npm ci
@@ -39,13 +50,17 @@ jobs:
       - name: Add .nojekyll
         run: touch out/.nojekyll
 
+      - name: SPA fallback 404
+        run: cp out/index.html out/404.html
+
+      - name: Add CNAME (optional)
+        if: env.CUSTOM_DOMAIN != ''
+        run: echo "${{ env.CUSTOM_DOMAIN }}" > out/CNAME
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: out
-          
-      - name: SPA fallback 404
-        run: cp out/index.html out/404.html
         
   deploy:
     needs: build
