@@ -20,7 +20,7 @@ export default function About() {
           <h2>About</h2>
         </div>
         <div>
-          <p>I'm spending a lot of time on the web playing with AI these days. See below for my work history.</p>
+          <p>I&apos;m spending a lot of time on the web playing with AI these days. See below for my work history.</p>
         </div>
         <div>
           <h3>Now</h3>
