@@ -1,12 +1,56 @@
 @import 'mediaqueries.css';
 @import url(https://use.typekit.net/ycy7yga.css);
 
+:root {
+    --grid: 32px;
+}
+
+/* Dark theme (default) */
+:root,
+[data-theme="dark"] {
+    --bg-color: #222;
+    --bg-color-mobile: #222221;
+    --text-color: #eaeaea;
+    --text-color-secondary: #888;
+    --accent-color: #ffe604;
+    --link-color: #ffe604;
+    --grid-color: rgba(255, 255, 255, 0.03);
+    --link-bg-dark: #222;
+    --link-hover-text: #000;
+    --selection-color: #444;
+    --selection-bg: #ffe604;
+    --text-shadow: 0px 2px 0px #000000;
+    --topbar-bg: transparent;
+    --topbar-bg-scrolled: rgba(34, 34, 34, 0.9);
+    --toggle-icon-color: #ffe604;
+}
+
+/* Light theme */
+[data-theme="light"] {
+    --bg-color: #f7f7f7;
+    --bg-color-mobile: #f7f7f7;
+    --text-color: #111;
+    --text-color-secondary: #666;
+    --accent-color: #ffe604;
+    --link-color: #0066cc;
+    --grid-color: rgba(0, 0, 0, 0.05);
+    --link-bg-dark: #f7f7f7;
+    --link-hover-text: #0066cc;
+    --link-hover-bg: #ffe604;
+    --selection-color: #444;
+    --selection-bg: #ffe604;
+    --text-shadow: 0px 2px 0px rgba(255, 255, 255, 0.8);
+    --topbar-bg: transparent;
+    --topbar-bg-scrolled: rgba(247, 247, 247, 0.9);
+    --toggle-icon-color: #0066cc;
+}
+
 html {
     font-family: neue-haas-grotesk-display, sans-serif;
     font-weight: 600;
     font-style: normal;
     font-size: calc(11px + 4 * (100vw - 320px) / 1046);
-    text-shadow: 0px 2px 0px #000000;
+    text-shadow: var(--text-shadow);
 }
 
 body {
@@ -15,7 +59,72 @@ body {
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #222;
+    background-color: var(--bg-color);
+    background-image:
+        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    background-size: var(--grid) var(--grid);
+    background-position: 0 0;
+    transition: background-color 0.3s ease;
+}
+
+header {
+    padding-top: calc(var(--grid) * 0.5);
+    margin: 0;
+    padding-bottom: 0;
+}
+
+/* Top Bar Styles */
+.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding: 0;
+    background-color: var(--topbar-bg);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    border-bottom: 1px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.top-bar.scrolled {
+    background-color: var(--topbar-bg-scrolled);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--grid-color);
+}
+
+.top-bar-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: calc(var(--grid) * 2);
+    padding: 0 calc(var(--grid) * 0.5);
+}
+
+.top-bar h1 {
+    padding-top: 0;
+    margin: 0;
+}
+
+main {
+    padding-top: calc(var(--grid) * 0.5);
+    margin: 0;
+    padding-bottom: 0;
+}
+
+main > div {
+    margin-bottom: calc(var(--grid) * 1);
+    margin-top: 0;
+}
+
+main > p {
+    margin-bottom: calc(var(--grid) * 0.5);
 }
 
 h1,
@@ -27,14 +136,15 @@ h6,
 p,
 li,
 code {
-    color: #eaeaea;
+    color: var(--text-color);
+    transition: color 0.3s ease;
 }
 
 a {
-    color: #ffe604;
-    background-image: linear-gradient(to top, #ffe604 50%, #222 50%);
+    color: var(--link-color);
+    background-image: linear-gradient(to top, var(--link-color) 50%, var(--link-bg-dark) 50%);
     background-size: 100% 200%;
-    padding: 0 5px 0 5px;
+    padding: 0 calc(var(--grid) * 0.25) 0 calc(var(--grid) * 0.25);
     -webkit-transition: background-position 0.1s;
     -moz-transition: background-position 0.1s;
     transition: background-position 0.1s;
@@ -42,20 +152,34 @@ a {
 
 
 a:visited {
-    color: #ffe604;
+    color: var(--link-color);
 }
 
-a:hover,
-a:visited:hover {
-    color: #000;
+/* Dark mode link hover - keep as is */
+[data-theme="dark"] a:hover,
+[data-theme="dark"] a:visited:hover {
+    color: var(--link-hover-text);
+    text-decoration: none;
+    text-shadow: none;
+    background-position: 0 100%;
+}
+
+/* Light mode link hover - yellow background with blue text */
+[data-theme="light"] a {
+    background-image: linear-gradient(to top, var(--link-hover-bg) 50%, var(--link-bg-dark) 50%);
+}
+
+[data-theme="light"] a:hover,
+[data-theme="light"] a:visited:hover {
+    color: var(--link-hover-text);
     text-decoration: none;
     text-shadow: none;
     background-position: 0 100%;
 }
 
 ::selection {
-    color: #444;
-    background: #ffe604;
+    color: var(--selection-color);
+    background: var(--selection-bg);
     text-shadow: none;
 }
 
@@ -66,30 +190,46 @@ code,
 }
 
 h1 {
-    font-size: 24px;
+    font-size: calc(var(--grid) * 0.75);
+    line-height: calc(var(--grid) * 1);
     font-weight: 700;
+    margin: 0;
+    padding: 0;
+    padding-top: calc(var(--grid) * 0.0625);
 }
 
 h2 {
-    font-size: 64px;
-    line-height: 64px;
+    font-size: calc(var(--grid) * 2);
+    line-height: calc(var(--grid) * 2);
     font-weight: 700;
+    margin: 0;
+    padding: 0;
+    padding-top: calc(var(--grid) * 0.125);
 }
 
 h3 {
-    font-size: 36px;
-    color: #888;
+    font-size: calc(var(--grid) * 1.125);
+    line-height: calc(var(--grid) * 1.25);
+    color: var(--text-color-secondary);
     font-weight: 700;
-    margin-bottom: 0.1em;
+    margin: 0;
+    margin-bottom: calc(var(--grid) * 0.25);
+    padding: 0;
+    padding-top: calc(var(--grid) * 0.0625);
 }
 
 .smallcopy {
-    font-size: 14px;
+    font-size: calc(var(--grid) * 0.4375);
+    line-height: calc(var(--grid) * 0.5);
 }
 
 p,
 li {
-    font-size: 24px;
+    font-size: calc(var(--grid) * 0.75);
+    line-height: calc(var(--grid) * 1);
+    margin: 0;
+    padding: 0;
+    padding-top: calc(var(--grid) * 0.0625);
 }
 
 ul,
@@ -104,11 +244,275 @@ ul {
 }
 
 li {
-    margin-bottom: 10px;
+    margin-bottom: calc(var(--grid) * 0.5);
+    margin-top: 0;
 }
 
 li span.date { font-size: 0.6em;}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--toggle-icon-color);
+    padding: calc(var(--grid) * 0.25) calc(var(--grid) * 0.5);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: neue-haas-grotesk-display, sans-serif;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    width: auto;
+    height: auto;
+}
+
+.theme-toggle:hover {
+    opacity: 0.7;
+}
+
+.theme-toggle svg {
+    display: block;
+    color: var(--toggle-icon-color);
+    stroke: var(--toggle-icon-color);
+}
+
 footer {
     text-align: center;
-    padding: 100px 10px 100px 10px;
+    padding: calc(var(--grid) * 3) calc(var(--grid) * 0.3125) calc(var(--grid) * 3) calc(var(--grid) * 0.3125);
+    margin: 0;
+}
+
+.footer-logo-link {
+    background-image: none !important;
+    padding: 0 !important;
+    display: inline-block;
+}
+
+.footer-logo-link:hover {
+    background-image: none !important;
+    background-position: initial !important;
+}
+
+.title-link {
+    background-image: none !important;
+    padding: 0 !important;
+    text-decoration: none !important;
+    display: block;
+}
+
+.title-link:hover {
+    background-image: none !important;
+    background-position: initial !important;
+    color: var(--text-color) !important;
+}
+
+.logo-glitch {
+  animation: glitch 0.4s;
+  animation-timing-function: steps(1, end);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.logo-glitch img {
+  animation: glitch-image 0.4s;
+  animation-timing-function: steps(1, end);
+}
+
+.logo-glitch-dark {
+  animation: glitch-dark 0.4s;
+  animation-timing-function: steps(1, end);
+  filter: drop-shadow(0 4px 8px rgba(0, 255, 0, 0.2));
+}
+
+.logo-glitch-dark img {
+  animation: glitch-image-dark 0.4s;
+  animation-timing-function: steps(1, end);
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  }
+  10% {
+    transform: translate(-1px, 1px);
+    filter: drop-shadow(-2px 6px 10px rgba(0, 0, 0, 0.4));
+  }
+  20% {
+    transform: translate(-1px, -1px);
+    filter: drop-shadow(-2px 2px 12px rgba(0, 0, 0, 0.35));
+  }
+  30% {
+    transform: translate(1px, 1px);
+    filter: drop-shadow(2px 6px 10px rgba(0, 0, 0, 0.4));
+  }
+  40% {
+    transform: translate(1px, -1px);
+    filter: drop-shadow(2px 2px 12px rgba(0, 0, 0, 0.35));
+  }
+  50% {
+    transform: translate(-1px, 1px);
+    filter: drop-shadow(-2px 6px 14px rgba(0, 0, 0, 0.45));
+  }
+  60% {
+    transform: translate(-1px, -1px);
+    filter: drop-shadow(-2px 2px 10px rgba(0, 0, 0, 0.4));
+  }
+  70% {
+    transform: translate(1px, 1px);
+    filter: drop-shadow(2px 6px 14px rgba(0, 0, 0, 0.45));
+  }
+  80% {
+    transform: translate(-1px, -1px);
+    filter: drop-shadow(-2px 2px 10px rgba(0, 0, 0, 0.4));
+  }
+  90% {
+    transform: translate(1px, 1px);
+    filter: drop-shadow(2px 6px 12px rgba(0, 0, 0, 0.4));
+  }
+  100% {
+    transform: translate(0);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  }
+}
+
+@keyframes glitch-image {
+  0% {
+    filter: hue-rotate(0deg) brightness(1) contrast(1);
+    opacity: 1;
+  }
+  10% {
+    filter: hue-rotate(90deg) brightness(1.3) contrast(1.2);
+    opacity: 0.9;
+  }
+  20% {
+    filter: hue-rotate(180deg) brightness(0.7) contrast(0.8);
+    opacity: 1;
+  }
+  30% {
+    filter: hue-rotate(270deg) brightness(1.2) contrast(1.1);
+    opacity: 0.95;
+  }
+  40% {
+    filter: hue-rotate(360deg) brightness(0.8) contrast(0.9);
+    opacity: 1;
+  }
+  50% {
+    filter: hue-rotate(90deg) brightness(1.4) contrast(1.3);
+    opacity: 0.9;
+  }
+  60% {
+    filter: hue-rotate(180deg) brightness(0.6) contrast(0.7);
+    opacity: 1;
+  }
+  70% {
+    filter: hue-rotate(270deg) brightness(1.3) contrast(1.2);
+    opacity: 0.95;
+  }
+  80% {
+    filter: hue-rotate(360deg) brightness(0.75) contrast(0.85);
+    opacity: 1;
+  }
+  90% {
+    filter: hue-rotate(90deg) brightness(1.2) contrast(1.1);
+    opacity: 0.9;
+  }
+  100% {
+    filter: hue-rotate(0deg) brightness(1) contrast(1);
+    opacity: 1;
+  }
+}
+
+@keyframes glitch-dark {
+  0% {
+    transform: translate(0);
+    filter: drop-shadow(0 4px 8px rgba(0, 255, 0, 0.2));
+  }
+  10% {
+    transform: translate(-1px, 1px);
+    filter: drop-shadow(-2px 6px 10px rgba(0, 255, 0, 0.3));
+  }
+  20% {
+    transform: translate(-1px, -1px);
+    filter: drop-shadow(-2px 2px 12px rgba(0, 255, 0, 0.25));
+  }
+  30% {
+    transform: translate(1px, 1px);
+    filter: drop-shadow(2px 6px 10px rgba(0, 255, 0, 0.3));
+  }
+  40% {
+    transform: translate(1px, -1px);
+    filter: drop-shadow(2px 2px 12px rgba(0, 255, 0, 0.25));
+  }
+  50% {
+    transform: translate(-1px, 1px);
+    filter: drop-shadow(-2px 6px 14px rgba(0, 255, 0, 0.35));
+  }
+  60% {
+    transform: translate(-1px, -1px);
+    filter: drop-shadow(-2px 2px 10px rgba(0, 255, 0, 0.3));
+  }
+  70% {
+    transform: translate(1px, 1px);
+    filter: drop-shadow(2px 6px 14px rgba(0, 255, 0, 0.35));
+  }
+  80% {
+    transform: translate(-1px, -1px);
+    filter: drop-shadow(-2px 2px 10px rgba(0, 255, 0, 0.3));
+  }
+  90% {
+    transform: translate(1px, 1px);
+    filter: drop-shadow(2px 6px 12px rgba(0, 255, 0, 0.3));
+  }
+  100% {
+    transform: translate(0);
+    filter: drop-shadow(0 4px 8px rgba(0, 255, 0, 0.2));
+  }
+}
+
+@keyframes glitch-image-dark {
+  0% {
+    filter: hue-rotate(0deg) brightness(1) contrast(1) saturate(1);
+    opacity: 1;
+  }
+  10% {
+    filter: hue-rotate(60deg) brightness(1.3) contrast(1.2) saturate(1.3);
+    opacity: 0.9;
+  }
+  20% {
+    filter: hue-rotate(55deg) brightness(0.7) contrast(0.8) saturate(1.2);
+    opacity: 1;
+  }
+  30% {
+    filter: hue-rotate(65deg) brightness(1.2) contrast(1.1) saturate(1.4);
+    opacity: 0.95;
+  }
+  40% {
+    filter: hue-rotate(58deg) brightness(0.8) contrast(0.9) saturate(1.3);
+    opacity: 1;
+  }
+  50% {
+    filter: hue-rotate(62deg) brightness(1.4) contrast(1.3) saturate(1.5);
+    opacity: 0.9;
+  }
+  60% {
+    filter: hue-rotate(53deg) brightness(0.6) contrast(0.7) saturate(1.2);
+    opacity: 1;
+  }
+  70% {
+    filter: hue-rotate(67deg) brightness(1.3) contrast(1.2) saturate(1.4);
+    opacity: 0.95;
+  }
+  80% {
+    filter: hue-rotate(59deg) brightness(0.75) contrast(0.85) saturate(1.3);
+    opacity: 1;
+  }
+  90% {
+    filter: hue-rotate(61deg) brightness(1.2) contrast(1.1) saturate(1.4);
+    opacity: 0.9;
+  }
+  100% {
+    filter: hue-rotate(0deg) brightness(1) contrast(1) saturate(1);
+    opacity: 1;
+  }
 }

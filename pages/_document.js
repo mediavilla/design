@@ -5,6 +5,18 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme') || 'dark';
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         <Main />
         <NextScript />
       </body>
