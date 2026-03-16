@@ -1,6 +1,7 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link';
+import TopBar from '@/components/TopBar';
+import Footer from '@/components/Footer';
 
 
 export default function Home() {
@@ -34,38 +35,20 @@ export default function Home() {
         <link rel="apple-touch-icon" href="https://mediavilla.design/mediavillalogo.png"></link>
 
       </Head>
-      <header>
-        <h1>Juan Mediavilla</h1>
-      </header>
+      <TopBar title="Juan Mediavilla" showTitleLink={false} />
       <main>
         <div>
-          <h2>User experience and service designer.</h2>
+          <h2>Projects</h2>
         </div>
-
-        <div>
-          <h3>Now</h3>
-          <ul>
-            <li>Head of Experience Design at <Link href="https://www.pwc.co.uk/services/consulting/the-experience-centre.html" target="blank">PwC UK</Link>.</li>
-          </ul>
-          <h3>Before</h3>
-          <ul>
-            <li><span date>Dec/19 &#8594; Oct/20 (Contract):</span><br />Lead UX Designer at <a href="https://www.pwc.com/" target="blank">PwC</a>.</li>
-            <li><span date>Jul/17 &#8594; Nov/19 (Contract):</span><br />Service Design Manager at <a href="https://www.lloydsbank.com/help-guidance/managing-your-money/moneyworries.html" target="blank">Lloyds Banking Group</a>.</li>
-            <li><span date>Nov/16 &#8594; Jun/17 (Contract):</span><br />User Experience Director at <a href="https://www.rapp.com/" target="blank">RAPP</a>.</li>
-          </ul>
-          <h3>More</h3>
-          <ul>
-            <li>During my 25+ years career I&apos;ve been lucky to work for some well known brands like Adidas, Airbnb, BP, Citibank, HP and PayPal.</li>
-          </ul>
-        </div>
-        <div>
-          <p>You can find me on 💻 <a href="https://github.com/mediavilla" target="blank">Github</a> or 🦋 <a href="https://bsky.app/profile/mediavilla.bsky.social" target="blank">Bluesky</a>.</p>
-        </div>
-        <p>And... yes, Mediavilla is actually my surname. 🤷🏽‍♂️</p>
-        <p><br/></p>
-        <footer>
-          <Image src="./logo.svg" height="200" width="200" alt="logo" />
-        </footer>
+        <div><p>I will be using this space to share my projects and experiments.</p></div>
+        <div><p>Some stuff coming soon...</p></div>
+        <div><p>In the meantime, you can check out my <Link href="/about">about</Link> page.</p></div>
+        <div><p><br/></p></div>
+        <div><p><br/></p></div>
+        <div><p><br/></p></div>
+        <div><p><br/></p></div>
+        
+        <Footer showLink={false} />
       </main>
     </>
   )

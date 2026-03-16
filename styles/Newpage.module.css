@@ -1,0 +1,144 @@
+/* GLOBAL VARIABLES */
+:root {
+    --bg: #f7f7f7;
+    --fg: #111;
+    --accent: #000;
+    --grid: #d0d0d0;
+    --mono: "IBM Plex Mono", monospace;
+    --sans: system-ui, -apple-system, sans-serif;
+  }
+  
+  /* PAGE WRAPPER */
+  .page {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    border-left: 1px solid var(--grid);
+    border-right: 1px solid var(--grid);
+    background: var(--bg);
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.03) 1px,
+      transparent 1px
+    );
+    background-size: 100% 18px; /* horizontal ruled paper */
+  }
+  
+  /* SECTIONS */
+  .spec-section {
+    border-top: 1px solid var(--grid);
+    padding: 18px 0 28px;
+  }
+  .spec-section--top {
+    border-top: 2px solid var(--accent);
+  }
+  .spec-section--bottom {
+    border-bottom: 2px solid var(--accent);
+  }
+  
+  /* LABELS */
+  .spec-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  
+  /* CONTENT WRAPPERS */
+  .spec-content {
+    display: flex;
+    gap: 32px;
+  }
+  .spec-content--two-col {
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .spec-content--split {
+    align-items: flex-start;
+  }
+  .spec-content--meta-bar {
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+  
+  /* TYPOGRAPHY */
+  .spec-title {
+    font-size: clamp(32px, 5vw, 54px);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .spec-subtitle {
+    margin-top: 8px;
+    font-size: 16px;
+  }
+  .spec-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-align: right;
+    line-height: 1.4;
+  }
+  .spec-heading {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-bottom: 8px;
+  }
+  .spec-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .spec-list li + li {
+    margin-top: 4px;
+  }
+  .spec-code {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-right: 6px;
+  }
+  
+  /* QR PANEL */
+  .spec-panel {
+    border: 1px solid var(--grid);
+    padding: 16px;
+    min-height: 120px;
+  }
+  .spec-panel--qr-placeholder {
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(0,0,0,0.04) 0,
+      rgba(0,0,0,0.04) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  }
+  .spec-micro {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+  
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .page {
+      padding-inline: 16px;
+    }
+    .spec-content {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .spec-content--meta-bar {
+      flex-direction: column;
+      gap: 4px;
+    }
+    .spec-meta {
+      text-align: left;
+    }
+  }
