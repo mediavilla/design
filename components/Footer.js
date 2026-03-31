@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-export default function Footer({ showLink = false }) {
+/**
+ * Renders the shared footer and exposes its DOM node for page-level grid measurements.
+ */
+const Footer = forwardRef(function Footer({ showLink = false }, ref) {
   const router = useRouter();
   const isIndexPage = router.pathname === '/';
   const [theme, setTheme] = useState('dark');
@@ -75,7 +78,7 @@ export default function Footer({ showLink = false }) {
   );
 
   return (
-    <footer>
+    <footer ref={ref}>
       {showLink ? (
         <Link href="/" className="footer-logo-link">{logoImage}</Link>
       ) : (
@@ -83,5 +86,6 @@ export default function Footer({ showLink = false }) {
       )}
     </footer>
   );
-}
+});
 
+export default Footer;

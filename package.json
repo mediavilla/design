@@ -10,6 +10,7 @@
     "serve": "concurrently \"http-server -p 3000 -c-1.\" \"start http://0.0.0.0:3000/mandala\""
   },
   "dependencies": {
+    "@chenglou/pretext": "^0.0.3",
     "@types/node": "18.14.1",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",

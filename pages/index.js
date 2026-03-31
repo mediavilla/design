@@ -1,10 +1,18 @@
+import { useRef } from 'react';
 import Head from 'next/head'
 import Link from 'next/link';
+import BackgroundGridCanvas from '@/components/BackgroundGridCanvas';
+import GridText from '@/components/GridText';
 import TopBar from '@/components/TopBar';
 import Footer from '@/components/Footer';
 
-
+/**
+ * Renders the homepage on top of a full-viewport canvas so the background grid can be drawn procedurally.
+ */
 export default function Home() {
+  const contentRef = useRef(null);
+  const footerRef = useRef(null);
+
   return (
     <>
       <Head>
@@ -35,21 +43,43 @@ export default function Home() {
         <link rel="apple-touch-icon" href="https://mediavilla.design/mediavillalogo.png"></link>
 
       </Head>
-      <TopBar title="Juan Mediavilla" showTitleLink={false} />
-      <main>
-        <div>
-          <h2>Projects</h2>
+      <div className="page-canvas-shell">
+        <BackgroundGridCanvas contentRef={contentRef} footerRef={footerRef} />
+        <div ref={contentRef} className="page-canvas-content">
+          <TopBar title="Juan Mediavilla" showTitleLink={false} />
+          <main>
+            <div className="text-block">
+              <GridText as="h2" variant="display">Projects</GridText>
+            </div>
+            <div className="text-block">
+              <GridText as="p" variant="body">
+                I will be using this space to share my projects and experiments.
+              </GridText>
+            </div>
+            <div className="text-block">
+              <GridText as="p" variant="body">Some stuff coming soon...</GridText>
+            </div>
+            <div className="text-block">
+              <GridText as="p" variant="body">
+                In the meantime, you can check out my <Link href="/about">about</Link> page.
+              </GridText>
+            </div>
+            <div className="text-block">
+              <GridText as="p" variant="body"><br /></GridText>
+            </div>
+            <div className="text-block">
+              <GridText as="p" variant="body"><br />YOLO</GridText>
+            </div>
+            <div className="text-block">
+              <GridText as="p" variant="body"><br /></GridText>
+            </div>
+            <div className="text-block">
+              <GridText as="p" variant="body"><br /></GridText>
+            </div>
+            <Footer ref={footerRef} showLink={false} />
+          </main>
         </div>
-        <div><p>I will be using this space to share my projects and experiments.</p></div>
-        <div><p>Some stuff coming soon...</p></div>
-        <div><p>In the meantime, you can check out my <Link href="/about">about</Link> page.</p></div>
-        <div><p><br/></p></div>
-        <div><p><br/></p></div>
-        <div><p><br/></p></div>
-        <div><p><br/></p></div>
-        
-        <Footer showLink={false} />
-      </main>
+      </div>
     </>
   )
 }
