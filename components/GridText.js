@@ -9,7 +9,7 @@ export default function GridText({
   as: Component = 'p',
   children,
   className = '',
-  variant = 'body',
+  variant = 'body-1',
   whiteSpace,
   style,
   ...restProps

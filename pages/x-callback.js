@@ -1,12 +1,18 @@
 import Head from 'next/head';
+import { useRef } from 'react';
 import GridText from '@/components/GridText';
 import TopBar from '@/components/TopBar';
 import Footer from '@/components/Footer';
+import { useGridPanelObserver } from '@/lib/useGridPanelObserver';
 
 /**
  * Renders the X callback page using the shared measured text primitives.
  */
 export default function XCallbackPage() {
+  const mainRef = useRef(null);
+
+  useGridPanelObserver(mainRef);
+
   return (
     <>
       <Head>
@@ -18,14 +24,18 @@ export default function XCallbackPage() {
         <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
       </Head>
       <TopBar title="Juan Mediavilla" showTitleLink={true} />
-      <main>
-        <div className="text-block">
-          <GridText as="h2" variant="display">X-Callback</GridText>
+      <main ref={mainRef}>
+        <div className="grid-row grid-gap-y-1">
+          <div className="grid-panel grid-start-1 grid-span-30">
+            <GridText as="h2" variant="display-2">X-Callback</GridText>
+          </div>
+          <div className="grid-panel grid-start-1 grid-span-30">
+            <GridText as="p" variant="body-1">Just give me my credentials!</GridText>
+          </div>
+          <div className="grid-panel grid-start-1 grid-span-30">
+            <GridText as="p" variant="body-1"><br /></GridText>
+          </div>
         </div>
-        <div className="text-block">
-          <GridText as="p" variant="body">Just give me my credentials!</GridText>
-        </div>
-        <p><br/></p>
         <Footer showLink={true} />
       </main>
     </>

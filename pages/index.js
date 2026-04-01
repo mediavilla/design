@@ -5,6 +5,7 @@ import BackgroundGridCanvas from '@/components/BackgroundGridCanvas';
 import GridText from '@/components/GridText';
 import TopBar from '@/components/TopBar';
 import Footer from '@/components/Footer';
+import { useGridPanelObserver } from '@/lib/useGridPanelObserver';
 
 /**
  * Renders the homepage on top of a full-viewport canvas so the background grid can be drawn procedurally.
@@ -12,6 +13,8 @@ import Footer from '@/components/Footer';
 export default function Home() {
   const contentRef = useRef(null);
   const footerRef = useRef(null);
+
+  useGridPanelObserver(contentRef);
 
   return (
     <>
@@ -48,33 +51,35 @@ export default function Home() {
         <div ref={contentRef} className="page-canvas-content">
           <TopBar title="Juan Mediavilla" showTitleLink={false} />
           <main>
-            <div className="text-block">
-              <GridText as="h2" variant="display">Projects</GridText>
-            </div>
-            <div className="text-block">
-              <GridText as="p" variant="body">
-                I will be using this space to share my projects and experiments.
-              </GridText>
-            </div>
-            <div className="text-block">
-              <GridText as="p" variant="body">Some stuff coming soon...</GridText>
-            </div>
-            <div className="text-block">
-              <GridText as="p" variant="body">
-                In the meantime, you can check out my <Link href="/about">about</Link> page.
-              </GridText>
-            </div>
-            <div className="text-block">
-              <GridText as="p" variant="body"><br /></GridText>
-            </div>
-            <div className="text-block">
-              <GridText as="p" variant="body"><br />YOLO</GridText>
-            </div>
-            <div className="text-block">
-              <GridText as="p" variant="body"><br /></GridText>
-            </div>
-            <div className="text-block">
-              <GridText as="p" variant="body"><br /></GridText>
+            <div className="grid-row grid-gap-y-1">
+              <div className="grid-panel grid-start-1 grid-span-30">
+                <GridText as="h2" variant="display-2">Projects</GridText>
+              </div>
+              <div className="grid-panel grid-start-1 grid-span-30">
+                <GridText as="p" variant="body-1">
+                  I will be using this space to share my projects and experiments.
+                </GridText>
+              </div>
+              <div className="grid-panel grid-start-1 grid-span-30">
+                <GridText as="p" variant="body-1">Some stuff coming soon...</GridText>
+              </div>
+              <div className="grid-panel grid-start-1 grid-span-30">
+                <GridText as="p" variant="body-1">
+                  In the meantime, you can check out my <Link href="/about">about</Link> page.
+                </GridText>
+              </div>
+              <div className="grid-panel grid-start-1 grid-span-30">
+                <GridText as="p" variant="body-1"><br /></GridText>
+              </div>
+              <div className="grid-panel grid-start-1 grid-span-30">
+                <GridText as="p" variant="body-1"><br />YOLO</GridText>
+              </div>
+              <div className="grid-panel grid-start-1 grid-span-30">
+                <GridText as="p" variant="body-1"><br /></GridText>
+              </div>
+              <div className="grid-panel grid-start-1 grid-span-30">
+                <GridText as="p" variant="body-1"><br /></GridText>
+              </div>
             </div>
             <Footer ref={footerRef} showLink={false} />
           </main>

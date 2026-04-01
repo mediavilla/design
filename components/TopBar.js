@@ -23,7 +23,7 @@ export default function TopBar({ title = 'Juan Mediavilla', showTitleLink = fals
   }, []);
 
   const titleElement = (
-    <GridText as="h1" variant="topbarTitle">
+    <GridText as="h1" variant="topbarTitle-1">
       {title}
     </GridText>
   );
@@ -38,7 +38,7 @@ export default function TopBar({ title = 'Juan Mediavilla', showTitleLink = fals
         )}
         <div style={{ display: 'flex', alignItems: 'center', gap: 'calc(var(--grid) * 0.5)' }}>
           <Link href="/about">
-            <GridText as="span" variant="nav">About</GridText>
+            <GridText as="span" variant="nav-1">About</GridText>
           </Link>
           <ThemeToggle />
         </div>
