@@ -73,6 +73,7 @@ const Footer = forwardRef(function Footer({ showLink = false }, ref) {
         height="200" 
         width="200" 
         alt="logo"
+        className="footer-logo"
       />
     </div>
   );

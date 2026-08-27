@@ -28,7 +28,7 @@ export default function ThemeToggle() {
   if (!mounted) {
     return (
       <button className="theme-toggle" aria-label="Toggle theme">
-        <Sun size={16} stroke="currentColor" />
+        <Sun stroke="currentColor" />
       </button>
     );
   }
@@ -39,7 +39,7 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
     >
-      {theme === 'dark' ? <Sun size={16} stroke="currentColor" /> : <Moon size={16} stroke="currentColor" />}
+      {theme === 'dark' ? <Sun stroke="currentColor" /> : <Moon stroke="currentColor" />}
     </button>
   );
 }

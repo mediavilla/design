@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import GridText from '@/components/GridText';
 import ThemeToggle from './ThemeToggle';
 
 /**
- * Renders the sticky top bar and keeps its visible labels on the same measured text system as the pages.
+ * Renders the sticky top bar with CSS-stable title sizing so it stays aligned with the theme toggle.
  */
 export default function TopBar({ title = 'Juan Mediavilla', showTitleLink = false }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,9 +22,7 @@ export default function TopBar({ title = 'Juan Mediavilla', showTitleLink = fals
   }, []);
 
   const titleElement = (
-    <GridText as="h1" variant="topbarTitle-1">
-      {title}
-    </GridText>
+    <h1 className="top-bar-title">{title}</h1>
   );
 
   return (
@@ -36,7 +33,7 @@ export default function TopBar({ title = 'Juan Mediavilla', showTitleLink = fals
         ) : (
           titleElement
         )}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'calc(var(--grid) * 0.5)' }}>
+        <div className="top-bar-actions">
           <ThemeToggle />
         </div>
       </div>

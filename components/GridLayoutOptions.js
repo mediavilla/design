@@ -25,7 +25,7 @@ export function HeroBannerLayout({
 
   return (
     <section className="layout-demo-panel layout-demo-panel--hero hatch--horizontal hatch--thick">
-      <GridText as="h2" variant={titleVariant}>{shownTitle}</GridText>
+      <GridText as="h2" variant={titleVariant} singleLineFit>{shownTitle}</GridText>
       <GridText as="p" variant={copyVariant}>{copy}</GridText>
     </section>
   );

@@ -10,17 +10,33 @@ export default function GridText({
   className = '',
   variant = 'body-1',
   whiteSpace,
+  singleLineFit = false,
   style,
   ...restProps
 }) {
   const plainText = flattenChildrenToText(children);
-  const { config, cssFont, elementRef, height, offsetY, ready } = usePretextMeasurement({
+  const containsBreak = childrenContainBreak(children);
+  const resolvedWhiteSpace = singleLineFit
+    ? 'nowrap'
+    : whiteSpace ?? (containsBreak ? 'pre-wrap' : undefined);
+  const {
+    config,
+    cssFont,
+    elementRef,
+    height,
+    offsetY,
+    ready,
+    characterTrackingX,
+  } = usePretextMeasurement({
     text: plainText,
     variant,
-    whiteSpace,
+    whiteSpace: resolvedWhiteSpace,
+    singleLineFit,
   });
   const display = Component === 'span' ? 'inline-block' : 'block';
-  const usesTrackedCharacters = Boolean(config.characterTrackingX && typeof children === 'string');
+  const usesTrackedCharacters = Boolean(
+    ready && characterTrackingX && typeof children === 'string',
+  );
 
   return (
     <Component
@@ -29,9 +45,10 @@ export default function GridText({
       style={{
         ...style,
         display,
-        font: cssFont,
+        font: ready ? cssFont : undefined,
         minHeight: ready && height > 0 ? `${height}px` : undefined,
-        whiteSpace: whiteSpace ?? config.whiteSpace,
+        whiteSpace: resolvedWhiteSpace ?? config.whiteSpace,
+        visibility: singleLineFit && !ready ? 'hidden' : undefined,
       }}
       aria-label={usesTrackedCharacters && !restProps['aria-label'] ? plainText : restProps['aria-label']}
       {...restProps}
@@ -39,12 +56,14 @@ export default function GridText({
       <span
         className="grid-text__inner"
         style={{
-          left: config.inkOffsetX ? `${config.inkOffsetX}px` : undefined,
+          display: singleLineFit ? 'inline-block' : undefined,
+          whiteSpace: singleLineFit ? 'nowrap' : undefined,
+          left: ready && config.inkOffsetX ? `${config.inkOffsetX}px` : undefined,
           top: ready && offsetY !== 0 ? `${offsetY}px` : undefined,
         }}
       >
         {usesTrackedCharacters
-          ? renderTrackedCharacters(children, config.characterTrackingX)
+          ? renderTrackedCharacters(children, characterTrackingX)
           : children}
       </span>
     </Component>
@@ -72,6 +91,20 @@ function flattenChildrenToText(children) {
       return flattenChildrenToText(child.props.children);
     })
     .join('');
+}
+
+function childrenContainBreak(children) {
+  return Children.toArray(children).some((child) => {
+    if (isValidElement(child)) {
+      if (child.type === 'br') {
+        return true;
+      }
+
+      return childrenContainBreak(child.props.children);
+    }
+
+    return false;
+  });
 }
 
 /**
