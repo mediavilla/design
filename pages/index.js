@@ -71,9 +71,9 @@ export default function LayoutOptionsPage() {
                     <br /><br />
                     This is my personal playground on the internet.
                     <br /><br />
-                    I'm currently Head of UX and Service design at PwC UK.
+                    I&apos;m currently Head of UX and Service design at PwC UK.
                     <br /><br />
-                    In my free time I'm building games for iOS and online tools experimenting with AI.
+                    In my free time I&apos;m building games for iOS and online tools experimenting with AI.
                     <br /><br />
                     More updates soon...
                   </>
