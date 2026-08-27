@@ -4,6 +4,7 @@ const repo = '' // leave '' for custom domain; set to '/your-repo' if publishing
 
 module.exports = {
   output: 'export',
+  transpilePackages: ['geist'],
   images: { unoptimized: true },
   trailingSlash: true,               // helps with static hosting
   basePath: repo,                    // '' for custom domain, '/repo' for project pages

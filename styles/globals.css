@@ -1,8 +1,18 @@
 @import 'mediaqueries.css';
 @import url(https://use.typekit.net/ycy7yga.css);
 
+@font-face {
+    font-family: 'DotMatrix';
+    src: url('/DotMatrix.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
 :root {
-    --grid: 32px;
+  --grid: max(8px, 2vw); /* 50 cells always span the full window width */
+  --page-columns: 50;
+  --page-width: calc(var(--grid) * var(--page-columns));
 }
 
 /* Dark theme (default) */
@@ -15,52 +25,83 @@
     --accent-color: #ffe604;
     --link-color: #ffe604;
     --grid-color: rgba(255, 255, 255, 0.03);
+    --hatch-color: rgba(255, 255, 255, 0.18);
+    --ink-color: #0F3861;
     --link-bg-dark: #222;
     --link-hover-text: #000;
     --selection-color: #444;
     --selection-bg: #ffe604;
-    --text-shadow: 0px 2px 0px #000000;
-    --topbar-bg: transparent;
-    --topbar-bg-scrolled: rgba(34, 34, 34, 0.9);
+    --text-shadow: none;
+    --topbar-bg: #0F3861;
+    --topbar-bg-scrolled: #0F3861;
     --toggle-icon-color: #ffe604;
+    --notepad-margin-image: url('/notepad-margin-dark.png');
 }
 
 /* Light theme */
 [data-theme="light"] {
     --bg-color: #f7f7f7;
     --bg-color-mobile: #f7f7f7;
-    --text-color: #111;
+    --text-color: #0F3861;
     --text-color-secondary: #666;
     --accent-color: #ffe604;
     --link-color: #0066cc;
     --grid-color: rgba(0, 0, 0, 0.05);
-    --link-bg-dark: #f7f7f7;
+    --hatch-color: rgba(15, 56, 97, 0.25);
+    --ink-color: #0F3861;
+    --link-bg-dark: #FAF5ED;
     --link-hover-text: #0066cc;
     --link-hover-bg: #ffe604;
     --selection-color: #444;
     --selection-bg: #ffe604;
-    --text-shadow: 0px 2px 0px rgba(255, 255, 255, 0.8);
-    --topbar-bg: transparent;
-    --topbar-bg-scrolled: rgba(247, 247, 247, 0.9);
+    --text-shadow: none;
+    --topbar-bg: #ffffff;
+    --topbar-bg-scrolled: #ffffff;
     --toggle-icon-color: #0066cc;
+    --notepad-margin-image: url('/notepad-margin-light.png');
 }
 
 html {
-    font-family: neue-haas-grotesk-display, sans-serif;
+    font-family: var(--font-geist-sans, sans-serif);
     font-weight: 600;
     font-style: normal;
     font-size: calc(11px + 4 * (100vw - 320px) / 1046);
-    text-shadow: var(--text-shadow);
+    text-shadow: none;
 }
 
 body {
-    max-width: calc(var(--grid) * 30);
     margin: 0 auto;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--bg-color);
     transition: background-color 0.3s ease;
+}
+
+/* Apple logo rendered from an SVG mask so it displays on every OS (Geist lacks U+F8FF) */
+.apple-glyph {
+    display: inline-block;
+    width: 0.78em;
+    height: 0.95em;
+    vertical-align: -0.1em;
+    background-color: currentColor;
+    mask: url('/Apple_logo_black.svg') no-repeat center / contain;
+    -webkit-mask: url('/Apple_logo_black.svg') no-repeat center / contain;
+}
+
+.font-dotmatrix {
+    font-family: 'DotMatrix', var(--font-geist-sans, sans-serif);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+/* Estimated sizing helper to make DotMatrix capitals occupy ~7 grid cells vertically. */
+.font-dotmatrix-7cells {
+    --dotmatrix-glyph-ratio: 0.84;
+    --dotmatrix-target-height: calc(var(--grid) * 7);
+    font-size: calc(var(--dotmatrix-target-height) / var(--dotmatrix-glyph-ratio));
+    line-height: var(--dotmatrix-target-height);
 }
 
 .page-canvas-shell {
@@ -75,7 +116,6 @@ body {
 .page-canvas-content {
     position: relative;
     z-index: 1;
-    max-width: calc(var(--grid) * 30);
     margin: 0 auto;
 }
 
@@ -90,8 +130,12 @@ body {
 
 .grid-row {
     display: grid;
-    grid-template-columns: repeat(30, minmax(0, var(--grid)));
+    grid-template-columns: repeat(50, minmax(0, var(--grid)));
     align-items: start;
+}
+
+.grid-span-full {
+  --grid-span: var(--page-columns);
 }
 
 .grid-panel {
@@ -104,6 +148,44 @@ body {
 
 .grid-row > .grid-panel {
     grid-column: var(--grid-start, 1) / span var(--grid-span, 30);
+}
+
+.grid-row > .grid-container {
+    grid-column: 3 / -3; /* 2-cell margins */
+}
+
+.layout-columns {
+    display: grid;
+    column-gap: calc(var(--grid) * 2);
+}
+
+.layout-columns--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.layout-columns--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.layout-columns--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 768px) {
+    .grid-row > .grid-container {
+        grid-column: 2 / -2; /* 1-cell margins */
+    }
+
+    .top-bar-inner {
+        padding: 0 var(--grid); /* match the 1-cell mobile margins */
+    }
+
+    .layout-columns--2,
+    .layout-columns--3,
+    .layout-columns--4 {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: calc(var(--grid) * 2);
+    }
 }
 
 .grid-gap-y-1 {
@@ -192,20 +274,78 @@ body {
 .grid-span-29 { --grid-span: 29; }
 .grid-span-30 { --grid-span: 30; }
 
-@media (max-width: 960px) {
-    .grid-row {
-        grid-template-columns: minmax(0, 1fr);
-    }
+.layout-demo-panel {
+  /* hatch defaults, overridable via .hatch--* modifier classes */
+  --hatch-angle: 45deg;
+  --hatch-line: 3px;
+  --hatch-period: calc(var(--grid) / 4);
+  position: relative;
+  /* 1-cell ring as padding, not border: browsers floor fractional border
+     widths to whole pixels, which knocks the content off the grid */
+  padding: var(--grid);
+  /* no background-color — interior stays transparent */
+}
 
-    .grid-row > .grid-panel {
-        grid-column: 1 / -1 !important;
-    }
+.layout-demo-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: var(--grid);
+  background: repeating-linear-gradient(
+      var(--hatch-angle),
+      var(--hatch-color) 0 var(--hatch-line),
+      transparent var(--hatch-line) var(--hatch-period)
+  );
+  /* keep only the ring: everything inside the padding is masked out */
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
 
-    .grid-row > .grid-gap-x-1,
-    .grid-row > .grid-gap-x-2,
-    .grid-row > .grid-gap-x-3 {
-        display: none;
-    }
+/* Hatch direction modifiers (stripes run perpendicular to the gradient angle) */
+.hatch--diagonal-left  { --hatch-angle: 45deg; }   /* lines lean like \ */
+.hatch--diagonal-right { --hatch-angle: 135deg; }  /* lines lean like / */
+.hatch--horizontal     { --hatch-angle: 0deg; }
+.hatch--vertical       { --hatch-angle: 90deg; }
+
+/* Hatch thickness modifiers */
+.hatch--thin   { --hatch-line: 1px; }
+.hatch--medium { --hatch-line: calc(var(--grid) / 12); }
+.hatch--thick  {
+  --hatch-line: calc(var(--grid) / 6);
+  --hatch-period: calc(var(--grid) / 3);
+}
+
+.layout-demo-panel--hero {
+    min-height: calc(var(--grid) * 6);
+    display: grid;
+    gap: var(--grid);
+    align-content: center;
+    /* 1-cell hatch ring + 1 cell of breathing room */
+    padding: calc(var(--grid) * 2);
+}
+
+.layout-demo-image-frame {
+    position: relative;
+    min-height: calc(var(--grid) * 8);
+    border-bottom: 1px solid var(--grid-color);
+    overflow: hidden;
+}
+
+.layout-demo-image {
+    object-fit: cover;
+}
+
+.layout-demo-image--contain {
+    object-fit: contain;
+    padding: calc(var(--grid) * 0.5);
+}
+
+.layout-demo-copy {
+    padding: var(--grid);
+    display: grid;
+    gap: var(--grid);
 }
 
 header {
@@ -222,7 +362,7 @@ header {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
-    padding: 0;
+    padding: var(--grid) 0 0; /* one cell margin above the menu */
     background-color: var(--topbar-bg);
     backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
@@ -238,13 +378,13 @@ header {
 }
 
 .top-bar-inner {
-    max-width: calc(var(--grid) * 30);
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     height: calc(var(--grid) * 2);
-    padding: 0;
+    box-sizing: border-box;
+    padding: 0 calc(var(--grid) * 2); /* same 2-cell side margins as .grid-container */
 }
 
 .top-bar h1 {
@@ -253,9 +393,14 @@ header {
 }
 
 main {
-    padding-top: 0;
+    /* Notepad perforation strip along the top of the page */
+    padding-top: calc(var(--grid) * 3);
     margin: 0;
     padding-bottom: 0;
+    background-image: var(--notepad-margin-image);
+    background-repeat: repeat-x;
+    background-position: left top;
+    background-size: calc(var(--grid) * 2) calc(var(--grid) * 3);
 }
 
 main > div {
@@ -265,6 +410,12 @@ main > div {
 
 main > p {
     margin-bottom: 0;
+}
+
+.page-canvas-content,
+.top-bar-inner {
+    width: var(--page-width);
+    max-width: 100vw;
 }
 
 h1,
@@ -400,33 +551,67 @@ li {
     position: relative;
 }
 
+.grid-text__tracked-char {
+    display: inline-block;
+}
+
 .grid-text--topbarTitle-1 {
-    font: 700 calc(var(--grid) * 0.75) / var(--grid) neue-haas-grotesk-display, sans-serif;
+    font: 700 calc(var(--grid) * 0.75) / var(--grid) var(--font-geist-sans), sans-serif;
 }
 
 .grid-text--nav-1 {
-    font: 600 calc(var(--grid) * 0.5) / var(--grid) neue-haas-grotesk-display, sans-serif;
+    font: 600 calc(var(--grid) * 0.5) / var(--grid) var(--font-geist-sans), sans-serif;
 }
 
 .grid-text--display-2 {
-    font: 700 calc(var(--grid) * 2) / calc(var(--grid) * 2) neue-haas-grotesk-display, sans-serif;
+    font: 700 calc(var(--grid) * 2) / calc(var(--grid) * 2) var(--font-geist-sans), sans-serif;
 }
 
 .grid-text--section-1 {
-    font: 700 var(--grid) / var(--grid) neue-haas-grotesk-display, sans-serif;
+    font: 700 var(--grid) / var(--grid) var(--font-geist-sans), sans-serif;
     color: var(--text-color-secondary);
 }
 
 .grid-text--body-1 {
-    font: 600 calc(var(--grid) * 0.75) / var(--grid) neue-haas-grotesk-display, sans-serif;
+    font: 600 calc(var(--grid) * 0.75) / var(--grid) var(--font-geist-sans), sans-serif;
 }
 
 .grid-text--body-2 {
-    font: 600 calc(var(--grid) * 0.75) / calc(var(--grid) * 2) neue-haas-grotesk-display, sans-serif;
+    font: 600 calc(var(--grid) * 0.75) / calc(var(--grid) * 2) var(--font-geist-sans), sans-serif;
 }
 
 .grid-text--micro-1 {
-    font: 600 calc(var(--grid) * 0.4375) / var(--grid) neue-haas-grotesk-display, sans-serif;
+    font: 600 calc(var(--grid) * 0.4375) / var(--grid) var(--font-geist-mono), monospace;
+}
+
+.grid-text--geistSans-1 {
+    font: 600 calc(var(--grid) * 0.75) / var(--grid) var(--font-geist-sans), sans-serif;
+}
+
+.grid-text--geistSans-2 {
+    font: 700 calc(var(--grid) * 2) / calc(var(--grid) * 2) var(--font-geist-sans), sans-serif;
+}
+
+.grid-text--dotmatrix-7 {
+    font: 400 calc((var(--grid) * 7) / 0.84) / calc(var(--grid) * 7) 'DotMatrix', var(--font-geist-sans), sans-serif;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.grid-text--geistPixelSquare-7 {
+    font: 500 calc(var(--grid) * 7) / calc(var(--grid) * 7) var(--font-geist-pixel-square), var(--font-geist-mono), monospace;
+}
+
+.grid-text--geistPixelGrid-7 {
+    font: 500 calc(var(--grid) * 7) / calc(var(--grid) * 7) var(--font-geist-pixel-grid), var(--font-geist-mono), monospace;
+}
+
+.grid-text--geistPixelCircle-7 {
+    font: 500 calc(var(--grid) * 7) / calc(var(--grid) * 7) var(--font-geist-pixel-circle), var(--font-geist-mono), monospace;
+}
+
+.grid-text--geistPixelLine-7 {
+    font: 500 calc(var(--grid) * 7) / calc(var(--grid) * 7) var(--font-geist-pixel-line), var(--font-geist-mono), monospace;
 }
 
 .text-block {
@@ -449,6 +634,18 @@ li {
     height: var(--grid);
 }
 
+.mb-cell-0 { margin-bottom: 0; }
+.mb-cell-1 { margin-bottom: var(--grid); }
+.mb-cell-2 { margin-bottom: calc(var(--grid) * 2); }
+.mb-cell-3 { margin-bottom: calc(var(--grid) * 3); }
+.mb-cell-4 { margin-bottom: calc(var(--grid) * 4); }
+
+.mt-cell-0 { margin-top: 0; }
+.mt-cell-1 { margin-top: var(--grid); }
+.mt-cell-2 { margin-top: calc(var(--grid) * 2); }
+.mt-cell-3 { margin-top: calc(var(--grid) * 3); }
+.mt-cell-4 { margin-top: calc(var(--grid) * 4); }
+
 .text-group {
     margin-bottom: var(--grid);
 }
@@ -463,7 +660,7 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: neue-haas-grotesk-display, sans-serif;
+    font-family: var(--font-geist-sans), sans-serif;
     font-weight: 600;
     transition: all 0.2s ease;
     width: auto;

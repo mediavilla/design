@@ -1,5 +1,4 @@
 import { Children, isValidElement } from 'react';
-import { getTypographyVariant } from '@/lib/pretextTypography';
 import { usePretextMeasurement } from '@/lib/usePretextMeasurement';
 
 /**
@@ -15,13 +14,13 @@ export default function GridText({
   ...restProps
 }) {
   const plainText = flattenChildrenToText(children);
-  const { elementRef, height, offsetY, ready } = usePretextMeasurement({
+  const { config, cssFont, elementRef, height, offsetY, ready } = usePretextMeasurement({
     text: plainText,
     variant,
     whiteSpace,
   });
-  const config = getTypographyVariant(variant);
   const display = Component === 'span' ? 'inline-block' : 'block';
+  const usesTrackedCharacters = Boolean(config.characterTrackingX && typeof children === 'string');
 
   return (
     <Component
@@ -30,16 +29,23 @@ export default function GridText({
       style={{
         ...style,
         display,
+        font: cssFont,
         minHeight: ready && height > 0 ? `${height}px` : undefined,
         whiteSpace: whiteSpace ?? config.whiteSpace,
       }}
+      aria-label={usesTrackedCharacters && !restProps['aria-label'] ? plainText : restProps['aria-label']}
       {...restProps}
     >
       <span
         className="grid-text__inner"
-        style={{ top: ready && offsetY !== 0 ? `${offsetY}px` : undefined }}
+        style={{
+          left: config.inkOffsetX ? `${config.inkOffsetX}px` : undefined,
+          top: ready && offsetY !== 0 ? `${offsetY}px` : undefined,
+        }}
       >
-        {children}
+        {usesTrackedCharacters
+          ? renderTrackedCharacters(children, config.characterTrackingX)
+          : children}
       </span>
     </Component>
   );
@@ -66,4 +72,20 @@ function flattenChildrenToText(children) {
       return flattenChildrenToText(child.props.children);
     })
     .join('');
+}
+
+/**
+ * Tightens fixed-matrix display glyphs without changing site-wide letter spacing.
+ */
+function renderTrackedCharacters(text, characterTrackingX) {
+  return text.split('').map((character, index) => (
+    <span
+      aria-hidden="true"
+      className="grid-text__tracked-char"
+      key={`${character}-${index}`}
+      style={{ marginRight: index === text.length - 1 ? undefined : `${characterTrackingX}px` }}
+    >
+      {character}
+    </span>
+  ));
 }

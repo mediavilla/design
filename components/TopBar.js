@@ -37,9 +37,6 @@ export default function TopBar({ title = 'Juan Mediavilla', showTitleLink = fals
           titleElement
         )}
         <div style={{ display: 'flex', alignItems: 'center', gap: 'calc(var(--grid) * 0.5)' }}>
-          <Link href="/about">
-            <GridText as="span" variant="nav-1">About</GridText>
-          </Link>
           <ThemeToggle />
         </div>
       </div>

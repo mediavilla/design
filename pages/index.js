@@ -1,16 +1,23 @@
 import { useRef } from 'react';
-import Head from 'next/head'
-import Link from 'next/link';
+import Head from 'next/head';
 import BackgroundGridCanvas from '@/components/BackgroundGridCanvas';
-import GridText from '@/components/GridText';
 import TopBar from '@/components/TopBar';
 import Footer from '@/components/Footer';
+import GridText from '@/components/GridText';
+import {
+  HeroBannerLayout,
+  TwoColumnMediaLayout,
+  ThreeColumnMediaLayout,
+  FourColumnMediaLayout,
+} from '@/components/GridLayoutOptions';
 import { useGridPanelObserver } from '@/lib/useGridPanelObserver';
 
+const HERO_WORDS = ['HEY', 'HOLA', 'WELCOME','HELLO', "HI"];
+
 /**
- * Renders the homepage on top of a full-viewport canvas so the background grid can be drawn procedurally.
+ * Dummy page that showcases reusable grid layout options.
  */
-export default function Home() {
+export default function LayoutOptionsPage() {
   const contentRef = useRef(null);
   const footerRef = useRef(null);
 
@@ -45,40 +52,33 @@ export default function Home() {
         <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
         <link rel="apple-touch-icon" href="https://mediavilla.design/mediavillalogo.png"></link>
 
-      </Head>
+        </Head>
+
       <div className="page-canvas-shell">
         <BackgroundGridCanvas contentRef={contentRef} footerRef={footerRef} />
         <div ref={contentRef} className="page-canvas-content">
-          <TopBar title="Juan Mediavilla" showTitleLink={false} />
+          <TopBar title="Juan Mediavilla" showTitleLink={true} />
           <main>
-            <div className="grid-row grid-gap-y-1">
-              <div className="grid-panel grid-start-1 grid-span-30">
-                <GridText as="h2" variant="display-2">Projects</GridText>
-              </div>
-              <div className="grid-panel grid-start-1 grid-span-30">
-                <GridText as="p" variant="body-1">
-                  I will be using this space to share my projects and experiments.
-                </GridText>
-              </div>
-              <div className="grid-panel grid-start-1 grid-span-30">
-                <GridText as="p" variant="body-1">Some stuff coming soon...</GridText>
-              </div>
-              <div className="grid-panel grid-start-1 grid-span-30">
-                <GridText as="p" variant="body-1">
-                  In the meantime, you can check out my <Link href="/about">about</Link> page.
-                </GridText>
-              </div>
-              <div className="grid-panel grid-start-1 grid-span-30">
-                <GridText as="p" variant="body-1"><br /></GridText>
-              </div>
-              <div className="grid-panel grid-start-1 grid-span-30">
-                <GridText as="p" variant="body-1"><br />YOLO</GridText>
-              </div>
-              <div className="grid-panel grid-start-1 grid-span-30">
-                <GridText as="p" variant="body-1"><br /></GridText>
-              </div>
-              <div className="grid-panel grid-start-1 grid-span-30">
-                <GridText as="p" variant="body-1"><br /></GridText>
+            <div className="grid-row grid-gap-y-2">
+              <div className="grid-panel grid-container">
+              <HeroBannerLayout
+                titleWords={HERO_WORDS}
+                titleVariant="dotmatrix-7"
+                copyVariant="geistPixelSquare-1"
+                copy={
+                  <>
+                    Thanks for visiting my website!
+                    <br /><br />
+                    This is my personal playground on the internet.
+                    <br /><br />
+                    I'm currently Head of UX and Service design at PwC UK.
+                    <br /><br />
+                    In my free time I'm building games for iOS and online tools experimenting with AI.
+                    <br /><br />
+                    More updates soon...
+                  </>
+                }
+              />
               </div>
             </div>
             <Footer ref={footerRef} showLink={false} />
@@ -86,5 +86,5 @@ export default function Home() {
         </div>
       </div>
     </>
-  )
+  );
 }
