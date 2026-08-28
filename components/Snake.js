@@ -20,15 +20,63 @@ const OPPOSITE = {
 const TICK_MS = 160;
 const SWIPE_THRESHOLD = 24;
 const INITIAL_LENGTH = 5;
+const FOOD_MARGIN = 2;
 
 /**
  * Returns playable column/row counts for the current container width.
  */
 function getBoardDimensions(containerWidth, gridSize) {
-  const totalCols = Math.round(containerWidth / gridSize);
+  const totalCols = Math.floor(containerWidth / gridSize);
   const cols = Math.max(8, totalCols - 2);
   const rows = 22;
   return { cols, rows };
+}
+
+function cellKey(x, y) {
+  return `${x},${y}`;
+}
+
+function getSnakeCells(snake) {
+  return new Set(snake.map((segment) => cellKey(segment.x, segment.y)));
+}
+
+/**
+ * Blocks every snake cell and a Chebyshev margin around it so food cannot spawn on or beside the body.
+ */
+function getBlockedFoodCells(snake, cols, rows, margin) {
+  const blocked = new Set();
+
+  snake.forEach((segment) => {
+    const originX = Math.round(Number(segment.x));
+    const originY = Math.round(Number(segment.y));
+
+    for (let dy = -margin; dy <= margin; dy += 1) {
+      for (let dx = -margin; dx <= margin; dx += 1) {
+        const x = originX + dx;
+        const y = originY + dy;
+
+        if (x >= 0 && x < cols && y >= 0 && y < rows) {
+          blocked.add(cellKey(x, y));
+        }
+      }
+    }
+  });
+
+  return blocked;
+}
+
+function collectOpenCells(cols, rows, blocked) {
+  const openCells = [];
+
+  for (let y = 0; y < rows; y += 1) {
+    for (let x = 0; x < cols; x += 1) {
+      if (!blocked.has(cellKey(x, y))) {
+        openCells.push({ x, y });
+      }
+    }
+  }
+
+  return openCells;
 }
 
 function createInitialSnake(cols, rows, direction = 'RIGHT') {
@@ -48,23 +96,32 @@ function createInitialSnake(cols, rows, direction = 'RIGHT') {
 }
 
 function spawnFood(snake, cols, rows) {
-  const occupied = new Set(snake.map((segment) => `${segment.x},${segment.y}`));
-  const freeCells = [];
+  const snakeCells = getSnakeCells(snake);
+  const paddedCells = getBlockedFoodCells(snake, cols, rows, FOOD_MARGIN);
+  const openCells = collectOpenCells(cols, rows, paddedCells);
+  const candidates = openCells.length > 0
+    ? openCells
+    : collectOpenCells(cols, rows, snakeCells);
 
-  for (let y = 0; y < rows; y += 1) {
-    for (let x = 0; x < cols; x += 1) {
-      const key = `${x},${y}`;
-      if (!occupied.has(key)) {
-        freeCells.push({ x, y });
-      }
-    }
-  }
-
-  if (freeCells.length === 0) {
+  if (candidates.length === 0) {
     return null;
   }
 
-  return freeCells[Math.floor(Math.random() * freeCells.length)];
+  const food = candidates[Math.floor(Math.random() * candidates.length)];
+
+  if (snakeCells.has(cellKey(food.x, food.y))) {
+    return null;
+  }
+
+  return food;
+}
+
+function createGameState(cols, rows, direction = 'RIGHT') {
+  const snake = createInitialSnake(cols, rows, direction);
+  return {
+    snake,
+    food: spawnFood(snake, cols, rows),
+  };
 }
 
 function segmentsEqual(a, b) {
@@ -85,35 +142,31 @@ export default function Snake() {
   const [status, setStatus] = useState('idle');
   const [cols, setCols] = useState(44);
   const [rows] = useState(22);
-  const [snake, setSnake] = useState(() => createInitialSnake(44, 22));
-  const [food, setFood] = useState(() => spawnFood(createInitialSnake(44, 22), 44, 22));
+  const [game, setGame] = useState(() => createGameState(44, 22));
   const [isCoarsePointer, setIsCoarsePointer] = useState(false);
   const [announcement, setAnnouncement] = useState('');
-  const snakeRef = useRef(snake);
-  const foodRef = useRef(food);
+  const gameRef = useRef(game);
+  const colsRef = useRef(cols);
+  const { snake, food } = game;
+  const snakeCells = getSnakeCells(snake);
+  const visibleFood = food && !snakeCells.has(cellKey(food.x, food.y)) ? food : null;
+
+  colsRef.current = cols;
 
   statusRef.current = status;
 
-  const updateSnake = useCallback((nextSnake) => {
-    snakeRef.current = nextSnake;
-    setSnake(nextSnake);
-  }, []);
-
-  const updateFood = useCallback((nextFood) => {
-    foodRef.current = nextFood;
-    setFood(nextFood);
+  const updateGame = useCallback((nextGame) => {
+    gameRef.current = nextGame;
+    setGame(nextGame);
   }, []);
 
   const resetGame = useCallback((nextCols, nextRows) => {
     const initialDirection = directionRef.current || 'RIGHT';
-    const initialSnake = createInitialSnake(nextCols, nextRows, initialDirection);
-    const initialFood = spawnFood(initialSnake, nextCols, nextRows);
     directionQueueRef.current = [];
-    updateSnake(initialSnake);
-    updateFood(initialFood);
+    updateGame(createGameState(nextCols, nextRows, initialDirection));
     setStatus('idle');
     setAnnouncement('Snake ready. Press space, click, or tap to start.');
-  }, [updateFood, updateSnake]);
+  }, [updateGame]);
 
   const startGame = useCallback(() => {
     setStatus('running');
@@ -151,13 +204,11 @@ export default function Snake() {
     const width = shell.getBoundingClientRect().width;
     const { cols: nextCols } = getBoardDimensions(width, gridSize);
 
-    setCols((prevCols) => {
-      if (prevCols !== nextCols) {
-        resetGame(nextCols, rows);
-        return nextCols;
-      }
-      return prevCols;
-    });
+    if (colsRef.current !== nextCols) {
+      colsRef.current = nextCols;
+      setCols(nextCols);
+      resetGame(nextCols, rows);
+    }
   }, [resetGame, rows]);
 
   useEffect(() => {
@@ -197,7 +248,10 @@ export default function Snake() {
       const direction = DIRECTIONS[nextDirection];
       directionRef.current = nextDirection;
 
-      const prevSnake = snakeRef.current;
+      const {
+        snake: prevSnake,
+        food: currentFood,
+      } = gameRef.current;
       const head = prevSnake[0];
       const nextHead = {
         x: head.x + direction.x,
@@ -214,7 +268,6 @@ export default function Snake() {
         return;
       }
 
-      const currentFood = foodRef.current;
       const ateFood = currentFood && segmentsEqual(nextHead, currentFood);
       const bodyToCheck = ateFood ? prevSnake : prevSnake.slice(0, -1);
 
@@ -224,19 +277,26 @@ export default function Snake() {
       }
 
       const nextSnake = [nextHead, ...prevSnake];
+      let nextFood = currentFood;
+
       if (!ateFood) {
         nextSnake.pop();
       } else {
-        const nextFood = spawnFood(nextSnake, cols, rows);
-        updateFood(nextFood);
+        nextFood = spawnFood(nextSnake, cols, rows);
 
         if (!nextFood) {
-          endGame();
-          setAnnouncement('You win! Press space, click, or tap to play again.');
+          const boardFull = getSnakeCells(nextSnake).size >= cols * rows;
+          if (boardFull) {
+            endGame();
+            setAnnouncement('You win! Press space, click, or tap to play again.');
+          }
         }
       }
 
-      updateSnake(nextSnake);
+      updateGame({
+        snake: nextSnake,
+        food: nextFood,
+      });
     }, TICK_MS);
 
     return () => {
@@ -244,7 +304,7 @@ export default function Snake() {
         window.clearInterval(tickRef.current);
       }
     };
-  }, [status, cols, rows, endGame, updateFood, updateSnake]);
+  }, [status, cols, rows, endGame, updateGame]);
 
   const handleBoardAction = useCallback(() => {
     if (statusRef.current === 'idle' || statusRef.current === 'gameOver') {
@@ -359,17 +419,17 @@ export default function Snake() {
               key={`${segment.x}-${segment.y}-${index}`}
               className={styles.segment}
               style={{
-                gridColumn: segment.x + 1,
-                gridRow: segment.y + 1,
+                '--cell-x': segment.x,
+                '--cell-y': segment.y,
               }}
             />
           ))}
-          {food ? (
+          {visibleFood ? (
             <div
               className={styles.food}
               style={{
-                gridColumn: food.x + 1,
-                gridRow: food.y + 1,
+                '--cell-x': visibleFood.x,
+                '--cell-y': visibleFood.y,
               }}
             />
           ) : null}

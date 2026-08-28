@@ -27,19 +27,21 @@
 }
 
 .playfield {
-  display: grid;
-  grid-template-columns: repeat(var(--snake-cols), var(--grid));
-  grid-template-rows: repeat(var(--snake-rows), var(--grid));
+  position: relative;
   width: calc(var(--grid) * var(--snake-cols));
   height: calc(var(--grid) * var(--snake-rows));
   margin: 0;
+  overflow: hidden;
 }
 
 .segment,
 .food {
+  position: absolute;
+  top: calc(var(--cell-y) * var(--grid));
+  left: calc(var(--cell-x) * var(--grid));
   width: var(--grid);
   height: var(--grid);
-  background: var(--ink-color);
+  background: var(--text-color);
 }
 
 .playfieldHidden > .segment,
