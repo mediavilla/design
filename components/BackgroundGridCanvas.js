@@ -100,6 +100,7 @@ function drawSquareGrid(ctx, width, footerSeamY, gridSize, gridOriginX) {
 
 /**
  * Draws one alternating diagonal per seam anchor and extends each line through the footer.
+ * Anchors extend beyond the viewport so crossing diagonals reach the bottom corners.
  */
 function drawFooterLattice(ctx, width, height, footerSeamY, gridSize, gridOriginX) {
   if (footerSeamY >= height) {
@@ -107,11 +108,16 @@ function drawFooterLattice(ctx, width, height, footerSeamY, gridSize, gridOrigin
   }
 
   const firstVisibleGridX = getFirstVisibleGridLine(gridOriginX, gridSize);
+  const deltaY = height - footerSeamY + gridSize;
+  const extraColumns = Math.ceil(deltaY / gridSize);
+  const startX = firstVisibleGridX - extraColumns * gridSize;
+  const endX = width + gridSize + extraColumns * gridSize;
+
   ctx.beginPath();
 
-  for (let x = firstVisibleGridX, columnIndex = 0; x <= width + gridSize; x += gridSize, columnIndex += 1) {
-    const direction = columnIndex % 2 === 0 ? -1 : 1;
-    const deltaY = height - footerSeamY + gridSize;
+  for (let x = startX; x <= endX; x += gridSize) {
+    const columnOffset = Math.round((x - firstVisibleGridX) / gridSize);
+    const direction = columnOffset % 2 === 0 ? -1 : 1;
 
     ctx.moveTo(x, footerSeamY);
     ctx.lineTo(x + direction * deltaY, height + gridSize);

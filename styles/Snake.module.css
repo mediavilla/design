@@ -1,0 +1,250 @@
+.shell {
+  width: 100%;
+  display: grid;
+  gap: var(--grid);
+  justify-items: center;
+}
+
+.board {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--grid);
+  border: 0;
+  background:
+    linear-gradient(var(--ink-color), var(--ink-color)) top left / 100% var(--grid) no-repeat,
+    linear-gradient(var(--ink-color), var(--ink-color)) bottom left / 100% var(--grid) no-repeat,
+    linear-gradient(var(--ink-color), var(--ink-color)) top left / var(--grid) 100% no-repeat,
+    linear-gradient(var(--ink-color), var(--ink-color)) top right / var(--grid) 100% no-repeat;
+  outline: none;
+  touch-action: none;
+  cursor: pointer;
+}
+
+.board:focus-visible {
+  outline: calc(var(--grid) / 4) solid var(--accent-color);
+  outline-offset: calc(var(--grid) / 4);
+}
+
+.playfield {
+  display: grid;
+  grid-template-columns: repeat(var(--snake-cols), var(--grid));
+  grid-template-rows: repeat(var(--snake-rows), var(--grid));
+  width: calc(var(--grid) * var(--snake-cols));
+  height: calc(var(--grid) * var(--snake-rows));
+  margin: 0;
+}
+
+.segment,
+.food {
+  width: var(--grid);
+  height: var(--grid);
+  background: var(--ink-color);
+}
+
+.playfieldHidden > .segment,
+.playfieldHidden > .food {
+  visibility: hidden;
+}
+
+.overlay {
+  position: absolute;
+  top: var(--grid);
+  left: var(--grid);
+  width: calc(var(--grid) * var(--snake-cols));
+  height: calc(var(--grid) * var(--snake-rows));
+  display: grid;
+  grid-template-columns: repeat(var(--snake-cols), var(--grid));
+  grid-template-rows: repeat(var(--snake-rows), var(--grid));
+  align-items: start;
+  pointer-events: none;
+}
+
+.title {
+  width: 100%;
+  justify-self: start;
+  align-self: start;
+  text-align: left;
+}
+
+.prompt {
+  width: 100%;
+  max-width: none;
+  justify-self: start;
+  align-self: start;
+  text-align: center;
+}
+
+.idleTitle {
+  grid-column: 2 / span 30;
+  grid-row: 3 / span 7;
+}
+
+.idlePrompt {
+  grid-column: 6 / span 22;
+  grid-row: 12 / span 2;
+}
+
+.gameOverTitle {
+  grid-column: 11 / span 24;
+  grid-row: 2 / span 15;
+  display: grid;
+  grid-template-columns: repeat(24, var(--grid));
+  grid-template-rows: repeat(15, var(--grid));
+}
+
+.gameOverWord {
+  grid-column: 1 / span 24;
+}
+
+.gameOverWord:first-child {
+  grid-row: 1 / span 7;
+}
+
+.gameOverWord:last-child {
+  grid-row: 9 / span 7;
+}
+
+.gameOverPrompt {
+  grid-column: 8 / span 30;
+  grid-row: 19 / span 2;
+}
+
+.dpad {
+  display: grid;
+  grid-template-columns: repeat(8, var(--grid));
+  grid-template-rows: repeat(5, var(--grid));
+  width: calc(var(--grid) * 8);
+  height: calc(var(--grid) * 5);
+  gap: 0;
+  pointer-events: auto;
+}
+
+.dpadIdle {
+  grid-column: 35 / span 8;
+  grid-row: 3 / span 5;
+  align-self: start;
+  justify-self: start;
+}
+
+.dpadRunning {
+  margin-top: var(--grid);
+}
+
+.dpadButton {
+  width: calc(var(--grid) * 2);
+  height: calc(var(--grid) * 2);
+  box-sizing: border-box;
+  padding: 0;
+  border: max(1px, calc(var(--grid) / 16)) solid var(--text-color);
+  background: var(--bg-color);
+  color: var(--text-color);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.dpadButton:focus-visible {
+  outline: calc(var(--grid) / 4) solid var(--accent-color);
+  outline-offset: calc(var(--grid) / 8);
+}
+
+.dpadUp {
+  grid-column: 4 / span 2;
+  grid-row: 1 / span 2;
+}
+
+.dpadLeft {
+  grid-column: 1 / span 2;
+  grid-row: 4 / span 2;
+}
+
+.dpadRight {
+  grid-column: 7 / span 2;
+  grid-row: 4 / span 2;
+}
+
+.dpadDown {
+  grid-column: 4 / span 2;
+  grid-row: 4 / span 2;
+}
+
+.dpadArrow {
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.dpadUp .dpadArrow {
+  border-width: 0 calc(var(--grid) * 0.4) calc(var(--grid) * 0.56);
+  border-color: transparent transparent currentColor;
+}
+
+.dpadDown .dpadArrow {
+  border-width: calc(var(--grid) * 0.56) calc(var(--grid) * 0.4) 0;
+  border-color: currentColor transparent transparent;
+}
+
+.dpadLeft .dpadArrow {
+  border-width: calc(var(--grid) * 0.4) calc(var(--grid) * 0.56) calc(var(--grid) * 0.4) 0;
+  border-color: transparent currentColor transparent transparent;
+}
+
+.dpadRight .dpadArrow {
+  border-width: calc(var(--grid) * 0.4) 0 calc(var(--grid) * 0.4) calc(var(--grid) * 0.56);
+  border-color: transparent transparent transparent currentColor;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .idleTitle {
+    grid-column: 2 / span 18;
+    grid-row: 3 / span 4;
+  }
+
+  .idlePrompt {
+    grid-column: 2 / span 16;
+    grid-row: 9 / span 3;
+  }
+
+  .dpadIdle {
+    grid-column: 12 / span 8;
+    grid-row: 12 / span 5;
+  }
+
+  .gameOverTitle {
+    grid-column: 3 / span 16;
+    grid-row: 3 / span 9;
+    grid-template-columns: repeat(16, var(--grid));
+    grid-template-rows: repeat(9, var(--grid));
+  }
+
+  .gameOverWord {
+    grid-column: 1 / span 16;
+  }
+
+  .gameOverWord:first-child {
+    grid-row: 1 / span 4;
+  }
+
+  .gameOverWord:last-child {
+    grid-row: 6 / span 4;
+  }
+
+  .gameOverPrompt {
+    grid-column: 2 / span 18;
+    grid-row: 14 / span 3;
+  }
+}
