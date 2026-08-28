@@ -81,7 +81,6 @@ export default function Snake() {
   const directionRef = useRef('RIGHT');
   const directionQueueRef = useRef([]);
   const tickRef = useRef(null);
-  const foodRef = useRef(null);
 
   const [status, setStatus] = useState('idle');
   const [cols, setCols] = useState(44);
@@ -90,19 +89,31 @@ export default function Snake() {
   const [food, setFood] = useState(() => spawnFood(createInitialSnake(44, 22), 44, 22));
   const [isCoarsePointer, setIsCoarsePointer] = useState(false);
   const [announcement, setAnnouncement] = useState('');
+  const snakeRef = useRef(snake);
+  const foodRef = useRef(food);
 
   statusRef.current = status;
-  foodRef.current = food;
+
+  const updateSnake = useCallback((nextSnake) => {
+    snakeRef.current = nextSnake;
+    setSnake(nextSnake);
+  }, []);
+
+  const updateFood = useCallback((nextFood) => {
+    foodRef.current = nextFood;
+    setFood(nextFood);
+  }, []);
 
   const resetGame = useCallback((nextCols, nextRows) => {
     const initialDirection = directionRef.current || 'RIGHT';
     const initialSnake = createInitialSnake(nextCols, nextRows, initialDirection);
+    const initialFood = spawnFood(initialSnake, nextCols, nextRows);
     directionQueueRef.current = [];
-    setSnake(initialSnake);
-    setFood(spawnFood(initialSnake, nextCols, nextRows));
+    updateSnake(initialSnake);
+    updateFood(initialFood);
     setStatus('idle');
     setAnnouncement('Snake ready. Press space, click, or tap to start.');
-  }, []);
+  }, [updateFood, updateSnake]);
 
   const startGame = useCallback(() => {
     setStatus('running');
@@ -186,47 +197,46 @@ export default function Snake() {
       const direction = DIRECTIONS[nextDirection];
       directionRef.current = nextDirection;
 
-      setSnake((prevSnake) => {
-        const head = prevSnake[0];
-        const nextHead = {
-          x: head.x + direction.x,
-          y: head.y + direction.y,
-        };
+      const prevSnake = snakeRef.current;
+      const head = prevSnake[0];
+      const nextHead = {
+        x: head.x + direction.x,
+        y: head.y + direction.y,
+      };
 
-        if (
-          nextHead.x < 0 ||
-          nextHead.x >= cols ||
-          nextHead.y < 0 ||
-          nextHead.y >= rows
-        ) {
+      if (
+        nextHead.x < 0 ||
+        nextHead.x >= cols ||
+        nextHead.y < 0 ||
+        nextHead.y >= rows
+      ) {
+        endGame();
+        return;
+      }
+
+      const currentFood = foodRef.current;
+      const ateFood = currentFood && segmentsEqual(nextHead, currentFood);
+      const bodyToCheck = ateFood ? prevSnake : prevSnake.slice(0, -1);
+
+      if (bodyToCheck.some((segment) => segmentsEqual(segment, nextHead))) {
+        endGame();
+        return;
+      }
+
+      const nextSnake = [nextHead, ...prevSnake];
+      if (!ateFood) {
+        nextSnake.pop();
+      } else {
+        const nextFood = spawnFood(nextSnake, cols, rows);
+        updateFood(nextFood);
+
+        if (!nextFood) {
           endGame();
-          return prevSnake;
+          setAnnouncement('You win! Press space, click, or tap to play again.');
         }
+      }
 
-        const currentFood = foodRef.current;
-        const ateFood = currentFood && segmentsEqual(nextHead, currentFood);
-        const bodyToCheck = ateFood ? prevSnake : prevSnake.slice(0, -1);
-
-        if (bodyToCheck.some((segment) => segmentsEqual(segment, nextHead))) {
-          endGame();
-          return prevSnake;
-        }
-
-        const nextSnake = [nextHead, ...prevSnake];
-        if (!ateFood) {
-          nextSnake.pop();
-        } else {
-          const nextFood = spawnFood(nextSnake, cols, rows);
-          if (!nextFood) {
-            endGame();
-            setAnnouncement('You win! Press space, click, or tap to play again.');
-          } else {
-            setFood(nextFood);
-          }
-        }
-
-        return nextSnake;
-      });
+      updateSnake(nextSnake);
     }, TICK_MS);
 
     return () => {
@@ -234,7 +244,7 @@ export default function Snake() {
         window.clearInterval(tickRef.current);
       }
     };
-  }, [status, cols, rows, endGame]);
+  }, [status, cols, rows, endGame, updateFood, updateSnake]);
 
   const handleBoardAction = useCallback(() => {
     if (statusRef.current === 'idle' || statusRef.current === 'gameOver') {
