@@ -116,11 +116,40 @@ function spawnFood(snake, cols, rows) {
   return food;
 }
 
+/**
+ * Places the first food at a fixed cell so server and client HTML match.
+ * In-game spawns still use spawnFood (random, never on the snake).
+ */
+function createInitialFood(snake, cols, rows) {
+  const head = snake[0];
+  const candidates = [
+    { x: Math.floor(cols / 2), y: Math.max(2, head.y - 8) },
+    { x: Math.floor(cols / 2), y: 4 },
+    { x: Math.max(0, Math.min(cols - 1, head.x)), y: 2 },
+  ];
+  const snakeCells = getSnakeCells(snake);
+
+  for (const cell of candidates) {
+    if (
+      cell.x >= 0 &&
+      cell.x < cols &&
+      cell.y >= 0 &&
+      cell.y < rows &&
+      !snakeCells.has(cellKey(cell.x, cell.y))
+    ) {
+      return cell;
+    }
+  }
+
+  const openCells = collectOpenCells(cols, rows, snakeCells);
+  return openCells[0] ?? null;
+}
+
 function createGameState(cols, rows, direction = 'RIGHT') {
   const snake = createInitialSnake(cols, rows, direction);
   return {
     snake,
-    food: spawnFood(snake, cols, rows),
+    food: createInitialFood(snake, cols, rows),
   };
 }
 
@@ -416,7 +445,7 @@ export default function Snake() {
         >
           {snake.map((segment, index) => (
             <div
-              key={`${segment.x}-${segment.y}-${index}`}
+              key={`segment-${index}`}
               className={styles.segment}
               style={{
                 '--cell-x': segment.x,

@@ -44,6 +44,10 @@
   background: var(--text-color);
 }
 
+.food {
+  border-radius: 50%;
+}
+
 .playfieldHidden > .segment,
 .playfieldHidden > .food {
   visibility: hidden;
