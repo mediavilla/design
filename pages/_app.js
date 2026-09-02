@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import { GeistPixelSquare, GeistPixelGrid, GeistPixelCircle, GeistPixelLine } from 'geist/font/pixel';
@@ -33,6 +34,7 @@ export default function App({ Component, pageProps }) {
   return (
     <div className={geistVariableClassName}>
       <Component {...pageProps} />
+      <Analytics />
     </div>
   );
 }
