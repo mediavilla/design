@@ -46,7 +46,9 @@ export default function GridText({
         ...style,
         display,
         font: ready ? cssFont : undefined,
+        height: ready && height > 0 ? `${height}px` : undefined,
         minHeight: ready && height > 0 ? `${height}px` : undefined,
+        overflow: ready && height > 0 ? 'visible' : undefined,
         whiteSpace: resolvedWhiteSpace ?? config.whiteSpace,
         visibility: singleLineFit && !ready ? 'hidden' : undefined,
       }}

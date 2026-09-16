@@ -3,7 +3,7 @@ import Head from 'next/head';
 import BackgroundGridCanvas from '@/components/BackgroundGridCanvas';
 import TopBar from '@/components/TopBar';
 import Footer from '@/components/Footer';
-import GridText from '@/components/GridText';
+import PeriodicTablePromo from '@/components/PeriodicTablePromo';
 import {
   HeroBannerLayout,
   TwoColumnMediaLayout,
@@ -59,7 +59,9 @@ export default function LayoutOptionsPage() {
                 }
               />
               </div>
-
+              <div className="grid-panel grid-container">
+                <PeriodicTablePromo />
+              </div>
               <div className="grid-panel grid-container">
                 <TwoColumnMediaLayout />
               </div>

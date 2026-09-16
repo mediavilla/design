@@ -3,8 +3,10 @@ import Head from 'next/head';
 import BackgroundGridCanvas from '@/components/BackgroundGridCanvas';
 import TopBar from '@/components/TopBar';
 import Snake from '@/components/Snake';
+import PeriodicTablePromo from '@/components/PeriodicTablePromo';
 import Footer from '@/components/Footer';
-import GridText from '@/components/GridText';
+import Link from 'next/link';
+import { SquareArrowOutUpRight } from 'lucide-react';
 
 import {
   HeroBannerLayout,
@@ -69,18 +71,19 @@ export default function LayoutOptionsPage() {
                 copyVariant="geistPixelSquare-1"
                 copy={
                   <>
-                    Thanks for visiting my website!
+                    Thanks for visiting my personal playground on the internet.
                     <br /><br />
-                    This is my personal playground on the internet.
+                    This site has been through many iterations and is a permanent work in progress. In this version I'm testing <Link href="https://github.com/chenglou/pretext" className="text-link" target="_blank" rel="noopener noreferrer">pretext<SquareArrowOutUpRight aria-hidden="true" /></Link>to align the copy to the grid and going for retro pixel art style. When I say "retro", I mean the 8-bit graphics of the 80s.
                     <br /><br />
-                    I&apos;m currently Head of UX and Service design at PwC UK.
+                    In my free time I&apos;m experimenting with AI, building websites I wish existed, iOS games, apps and online tools. Some of them are listed below.
                     <br /><br />
-                    In my free time I&apos;m building games for iOS and online tools experimenting with AI.
-                    <br /><br />
-                    More updates soon...
+                    You can find me on <Link href="https://github.com/mediavilla" className="text-link" target="_blank" rel="noopener noreferrer">GitHub<SquareArrowOutUpRight aria-hidden="true" /></Link>, <Link href="https://x.com/JuanMediavilla" className="text-link" target="_blank" rel="noopener noreferrer">X / Twitter<SquareArrowOutUpRight aria-hidden="true" /></Link> and very rarely on <Link href="https://www.linkedin.com/in/juan-mediavilla-835373121/" className="text-link" target="_blank" rel="noopener noreferrer">LinkedIn<SquareArrowOutUpRight aria-hidden="true" /></Link>.
                   </>
                 }
               />
+              </div>
+              <div className="grid-panel grid-container">
+                <PeriodicTablePromo />
               </div>
               <div className="grid-panel grid-container">
                 <Snake />

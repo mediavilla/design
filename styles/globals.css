@@ -485,8 +485,9 @@ code {
 
 a {
     color: var(--link-color);
-    background-image: linear-gradient(to top, var(--link-color) 50%, var(--link-bg-dark) 50%);
+    background-image: linear-gradient(to top, var(--link-color) 50%, transparent 50%);
     background-size: 100% 200%;
+    background-position: 0 0;
     padding: 0 calc(var(--grid) * 0.25) 0 calc(var(--grid) * 0.25);
     -webkit-transition: background-position 0.1s;
     -moz-transition: background-position 0.1s;
@@ -509,7 +510,21 @@ a:visited {
 
 /* Light mode link hover - yellow background with blue text */
 [data-theme="light"] a {
-    background-image: linear-gradient(to top, var(--link-hover-bg) 50%, var(--link-bg-dark) 50%);
+    background-image: linear-gradient(to top, var(--link-hover-bg) 50%, transparent 50%);
+}
+
+.text-link {
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.text-link svg {
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 0.15em;
+    vertical-align: -0.1em;
+    stroke: currentColor;
 }
 
 [data-theme="light"] a:hover,
@@ -664,9 +679,218 @@ li {
     font: 500 calc(var(--grid) * 7) / calc(var(--grid) * 7) var(--font-geist-pixel-circle), var(--font-geist-mono), monospace;
 }
 
+.grid-text--geistPixelLine-2 {
+    font: 500 calc(var(--grid) * 2) / calc(var(--grid) * 2) var(--font-geist-pixel-line), var(--font-geist-mono), monospace;
+}
+
 .grid-text--geistPixelLine-7 {
     font: 500 calc(var(--grid) * 7) / calc(var(--grid) * 7) var(--font-geist-pixel-line), var(--font-geist-mono), monospace;
 }
+
+.grid-text--geistMonoMedium-1 {
+    font: 500 calc(var(--grid) * 0.5) / var(--grid) var(--font-geist-mono), monospace;
+}
+
+.periodic-table-promo {
+    display: grid;
+    gap: var(--grid);
+}
+
+.periodic-table-promo__title-link {
+    text-decoration: none !important;
+    display: flex;
+    justify-content: center;
+    padding: 0 !important;
+    color: var(--text-color) !important;
+    /* Kill the global <a> resting fill; hover lives on ::before */
+    background-image: none !important;
+    background-color: transparent !important;
+}
+
+.periodic-table-promo__title-link:hover,
+.periodic-table-promo__title-link:visited:hover {
+    background-image: none !important;
+    background-color: transparent !important;
+    background-position: initial !important;
+    text-decoration: none;
+}
+
+.periodic-table-promo__title-link .grid-text {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+    padding: 0 calc(var(--grid) * 0.25);
+}
+
+/* Ink overshoots the line box; extend the highlight with a pseudo-element */
+.periodic-table-promo__title-link .grid-text::before {
+    content: '';
+    position: absolute;
+    inset: calc(var(--grid) * -1) calc(var(--grid) * -0.125) calc(var(--grid) * -0.5) calc(var(--grid) * -0.125);
+    z-index: -1;
+    background-image: linear-gradient(to top, var(--link-color) 50%, transparent 50%);
+    background-size: 100% 200%;
+    background-position: 0 0;
+    -webkit-transition: background-position 0.1s;
+    -moz-transition: background-position 0.1s;
+    transition: background-position 0.1s;
+}
+
+[data-theme="light"] .periodic-table-promo__title-link .grid-text::before {
+    background-image: linear-gradient(to top, var(--link-hover-bg) 50%, transparent 50%);
+}
+
+.periodic-table-promo__title-link:hover .grid-text::before,
+.periodic-table-promo__title-link:visited:hover .grid-text::before {
+    background-position: 0 100%;
+}
+
+.periodic-table-promo__title-link:hover .grid-text,
+.periodic-table-promo__title-link:visited:hover .grid-text {
+    font-family: var(--font-geist-pixel-triangle), var(--font-geist-mono), monospace !important;
+    color: var(--link-hover-text);
+}
+
+.periodic-table-promo__table {
+    display: grid;
+    grid-template-columns: repeat(18, var(--grid));
+    grid-auto-rows: var(--grid);
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+}
+
+/* Desktop: leave three grid cells on the left for the oversized atom. */
+@media (min-width: 769px) {
+    .periodic-table-promo__table {
+        padding-left: calc(var(--grid) * 3);
+    }
+}
+
+.periodic-table-promo__cell {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--text-color);
+    border-radius: 0;
+    /* Opaque so the background atom does not show through every cell. */
+    background-color: var(--bg-color);
+    color: inherit;
+    font: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.periodic-table-promo__cell:hover:not(.periodic-table-promo__cell--filled) {
+    background-color: color-mix(in srgb, var(--text-color) 18%, var(--bg-color));
+}
+
+.periodic-table-promo__cell:focus-visible {
+    outline: 2px solid var(--text-color);
+    outline-offset: -2px;
+    z-index: 2;
+}
+
+.periodic-table-promo__cell--filled {
+    background-color: var(--text-color);
+}
+
+.periodic-table-promo__atom {
+    position: absolute;
+    /* Nucleus sits in the left padding, vertically centred on the two f-block rows. */
+    left: calc(var(--grid) * 1.5);
+    bottom: var(--grid);
+    z-index: 0;
+    display: flex;
+    pointer-events: none;
+    width: calc(var(--grid) * 12);
+    height: calc(var(--grid) * 12);
+    transform: translate(-50%, 50%);
+    color: var(--text-color);
+    opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+    .periodic-table-promo__atom {
+        left: calc(var(--grid) * 1.5);
+        width: calc(var(--grid) * 9);
+        height: calc(var(--grid) * 9);
+        opacity: 0.75;
+    }
+}
+
+.bohr-atom {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* Allow outer shells to spill under the table cells. */
+    overflow: visible;
+}
+
+.bohr-atom__nucleus {
+    fill: var(--text-color);
+}
+
+.bohr-atom__symbol {
+    fill: var(--bg-color);
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 7px;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.bohr-atom__orbit {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 0.75;
+    opacity: 0.55;
+}
+
+.bohr-atom__electron {
+    fill: currentColor;
+}
+
+.bohr-atom__shell {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    animation-name: bohr-orbit;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.bohr-atom--paused .bohr-atom__shell {
+    animation: none;
+}
+
+@keyframes bohr-orbit {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bohr-atom__shell {
+        animation: none;
+    }
+}
+
+.periodic-table-promo__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.periodic-table-promo__copy > .grid-text {
+    flex: 0 0 auto;
+}
+
 
 .text-block {
     margin-bottom: var(--grid);

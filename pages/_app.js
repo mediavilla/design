@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
-import { GeistPixelSquare, GeistPixelGrid, GeistPixelCircle, GeistPixelLine } from 'geist/font/pixel';
+import { GeistPixelSquare, GeistPixelGrid, GeistPixelCircle, GeistPixelTriangle, GeistPixelLine } from 'geist/font/pixel';
 import '@/styles/globals.css'
 
 const geistVariableClasses = [
@@ -11,6 +11,7 @@ const geistVariableClasses = [
   GeistPixelSquare.variable,
   GeistPixelGrid.variable,
   GeistPixelCircle.variable,
+  GeistPixelTriangle.variable,
   GeistPixelLine.variable,
 ].filter(Boolean);
 
