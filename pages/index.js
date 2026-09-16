@@ -73,7 +73,7 @@ export default function LayoutOptionsPage() {
                   <>
                     Thanks for visiting my personal playground on the internet.
                     <br /><br />
-                    This site has been through many iterations and is a permanent work in progress. In this version I'm testing <Link href="https://github.com/chenglou/pretext" className="text-link" target="_blank" rel="noopener noreferrer">pretext<SquareArrowOutUpRight aria-hidden="true" /></Link>to align the copy to the grid and going for retro pixel art style. When I say "retro", I mean the 8-bit graphics of the 80s.
+                    This site has been through many iterations and is a permanent work in progress. In this version I&apos;m testing <Link href="https://github.com/chenglou/pretext" className="text-link" target="_blank" rel="noopener noreferrer">pretext<SquareArrowOutUpRight aria-hidden="true" /></Link>to align the copy to the grid and going for retro pixel art style. When I say &quot;retro&quot;, I mean the 8-bit graphics of the 80s.
                     <br /><br />
                     In my free time I&apos;m experimenting with AI, building websites I wish existed, iOS games, apps and online tools. Some of them are listed below.
                     <br /><br />
