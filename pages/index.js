@@ -77,7 +77,7 @@ export default function LayoutOptionsPage() {
                     <br /><br />
                     In my free time I&apos;m experimenting with AI, building websites I wish existed, iOS games, apps and online tools. Some of them are listed below.
                     <br /><br />
-                    You can find me on <Link href="https://github.com/mediavilla" className="text-link" target="_blank" rel="noopener noreferrer">GitHub<SquareArrowOutUpRight aria-hidden="true" /></Link>, <Link href="https://x.com/JuanMediavilla" className="text-link" target="_blank" rel="noopener noreferrer">X / Twitter<SquareArrowOutUpRight aria-hidden="true" /></Link> and very rarely on <Link href="https://www.linkedin.com/in/juan-mediavilla-835373121/" className="text-link" target="_blank" rel="noopener noreferrer">LinkedIn<SquareArrowOutUpRight aria-hidden="true" /></Link>.
+                    You can find me on <Link href="https://github.com/mediavilla" className="text-link" target="_blank" rel="noopener noreferrer">GitHub<SquareArrowOutUpRight aria-hidden="true" /></Link>, <Link href="https://x.com/JuanMediavilla" className="text-link" target="_blank" rel="noopener noreferrer">X / Twitter<SquareArrowOutUpRight aria-hidden="true" /></Link> and very rarely on <Link href="https://www.linkedin.com/in/jrmediavilla/" className="text-link" target="_blank" rel="noopener noreferrer">LinkedIn<SquareArrowOutUpRight aria-hidden="true" /></Link>.
                   </>
                 }
               />
